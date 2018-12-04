@@ -1,0 +1,22 @@
+extends ../layout
+block imports-main
+  link(type="text/css" rel="stylesheet" href="/static/main/document/style.css")
+
+block content-main
+    .row
+      .col-auto
+        a(href=`${previousPage}`)
+          .back-button Go Back
+    form
+      .row
+        .col-12
+      .row.document-details
+        .col-12
+          each field in document.fieldList
+            .row.property
+              .col-2.field= field.prettyTitleCase()
+              .col-8.value
+                input.value-input(disabled=true type='text' value=`${document.data[field]}` )
+      .row
+        .col-auto.offset-2
+          button.save-but(type="submit" disabled=true) Save changes

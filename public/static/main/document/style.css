@@ -1,0 +1,20 @@
+main {
+  width: 100%; }
+
+.document-details {
+  margin-bottom: 1rem; }
+
+.field {
+  font-weight: bold;
+  text-align: right;
+  padding: 0.3rem; }
+
+.value-input {
+  width: 100%;
+  padding: 0.3rem; }
+
+.property {
+  margin-bottom: 0.5rem; }
+
+.save-but {
+  padding: 0.4rem; }

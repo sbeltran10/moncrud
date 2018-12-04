@@ -1,0 +1,16 @@
+extends ../layout
+block imports-main
+  link(type="text/css" rel="stylesheet" href="/static/main/database/style.css")
+
+block content-main
+  .row
+    .col-auto
+      a(href=`${previousPage}`)
+        .back-button Go Back
+  .row
+    h4.col= database.name.prettyTitleCase()
+  .row
+    each collection in database.collections
+      .col-3
+        a(href=`/main/${database.name}/${collection}`)
+          .collection-item=collection.prettyTitleCase()

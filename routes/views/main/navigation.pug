@@ -1,0 +1,5 @@
+nav
+  .databases
+    each connection in connections
+      a(href=`/main/${connection.name}`)
+        .nav-item= connection.name.prettyTitleCase()

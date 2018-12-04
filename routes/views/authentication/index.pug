@@ -1,0 +1,21 @@
+extends ../layout
+block imports
+  link(type="text/css" rel='stylesheet' href="/static/authentication/style.css")
+
+block content
+  main.container
+    form(method='POST').login-main
+      .row
+        .col.title
+          h1 <span class="mon-kw">Mon</span><span class="crud-kw">CRUD</span>
+      .row
+        .col.initial-text Please enter your credentials to log in
+      .row
+        input.col(type='text' name='username' autofocus placeholder='username')
+      .row
+        input.col(type='password' name='password' placeholder='password')
+      if wrongCredentials
+        .row
+          .col.error-msg Invalid credentials
+      .row
+        button.col(type="submit") Login

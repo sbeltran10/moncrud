@@ -1,0 +1,50 @@
+extends ../layout
+block imports-main
+  link(type="text/css" rel="stylesheet" href="/static/main/collection/style.css")
+
+block content-main
+  - var currentRoute = `/main/${databaseName}/${collection.name}`
+  .row
+    .col-auto
+      a(href=`/main/${databaseName}`)
+        .back-button Go Back
+  form(method="GET")
+    .row
+      h4.col= collection.name.prettyTitleCase()
+    .row
+      .col-auto
+        button.filter-but(type="submit") Apply filters
+      .col-auto
+        button.filter-but(formaction=`${currentRoute}/reset/1` type="submit") Reset filters
+    .row
+      .col-12
+    .row.flex-nowrap.document-container
+      if collection.documents.length <= 0
+        .col No results
+      each field in collection.fieldList
+        .col.field-doc-col
+          .row
+            .col-12.container-cell.document-field= field.key.prettyTitleCase()
+            .col-12
+              - var inputVal = inputValues[field.key];
+              input(name=`${field.key}` type="text" value=`${inputVal?inputVal:''}`) 
+          each document in collection.documents
+            .row
+              - var keyValue = document[field.key];
+              if field.key === '_id'
+                a(href=`${currentRoute}/${keyValue}`)
+                  .col-12.container-cell.document-id= keyValue
+              else
+                if keyValue && (!Array.isArray(keyValue) || (Array.isArray(keyValue) && keyValue.length > 0))
+                  .col-12.document-value.container-cell= keyValue
+                else
+                  .col-12.document-value.container-cell.no-value No value
+    .row.paginate-buttons
+      - var disabledPrevious = inputValues.page==0 || !inputValues.page
+      - var disabledNext = collection.documents.length < 30
+      .col-auto
+        button.paginate-but(formmethod="GET"
+         formaction=`${currentRoute}/page/${(Number(inputValues.page)-1)}` type="submit" disabled=disabledPrevious) Previous 30
+      .col-auto
+        button.paginate-but(formmethod="GET"
+         formaction=`${currentRoute}/page/${(Number(inputValues.page)+1)}` type="submit" disabled=disabledNext) Next 30

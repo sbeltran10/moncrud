@@ -1,0 +1,23 @@
+extends ../layout
+block imports
+  link(type="text/css" rel='stylesheet' href="/static/setup/style.css")
+  script(src="/static/setup/script.js" defer)
+
+block content
+  main.container
+    .row
+      .col-12
+        h2 First time setup
+    .row
+      .col-12.initial-text Please create a username and password for the admin user
+    form(method='POST')
+      .row
+        input.col(type='text' name='username' minlength=4 autofocus placeholder='username' required)
+      .row.col.initial-text Your password must contain at least one lowercase character, one uppercase character and a number
+      .row
+        input.col(type='password' id="password" minlength=5 name='password'
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" placeholder='password' required)
+      .row
+        input.col(type='password' id="confirm-password" name='confirm-password' placeholder='confirm password' required)
+      .row
+        button.col(type="submit") Create user

@@ -1,0 +1,33 @@
+body{
+  min-height: fit-content;
+}
+
+main.container{
+  margin-top: 10%;
+  border: solid 1px lightgray;
+  width: fit-content;
+  max-width: 25rem;
+  padding:3rem 4rem
+}
+
+.mon-kw{
+  color: darkgreen
+}
+
+.crud-kw{
+  color:grey
+}
+
+.initial-text{
+  margin-bottom: 1rem;
+}
+
+form input.col{
+  width: 20rem;
+  margin-bottom: 1rem
+}
+
+.error-msg{
+  color: darkred;
+  margin-bottom: 1rem
+}

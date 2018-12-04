@@ -1,0 +1,7 @@
+extends ../layout
+
+block content-main
+  form(method='POST').new-connection
+    input(type='text' name='name' autofocus placeholder='Connection name')
+    input(type='text' name='uri' autofocus placeholder='Database uri')
+    button(type="submit") Connect

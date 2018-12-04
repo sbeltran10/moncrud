@@ -1,0 +1,45 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+a div{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+a div:hover, a div:focus, button:hover, button:focus, button:disabled{
+  opacity: 0.6;
+}
+
+a:link {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: default;
+}
+
+a:visited {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: default;
+}
+
+body{
+  min-height: 100vh;
+}
+
+
+button{
+  background-color: grey;
+  color: white;
+  border:none;
+  padding: 0.4rem 0;
+  font-weight: bold;
+}
