@@ -10,7 +10,8 @@ module.exports = {
 
   comparePassword: (username, password) => {
     let userData = dataManager.read(dataManager.USER_STORE)
-    return bcrypt.compare(password, userData[username].password)
+    if (userData[username]) return bcrypt.compare(password, userData[username].password)
+    else return false
   },
 
   generateJWT: username => {
