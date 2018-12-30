@@ -38,7 +38,6 @@ module.exports = class {
             }
           })
           this.fieldList = Object.values(this.fields)
-          console.log(this.fieldList)
           this.documents = documents
           resolve()
         })
@@ -57,7 +56,6 @@ module.exports = class {
         sortObj[paramName] = Number(parameters[key])
       }
     }
-    console.log(sortObj)
     return sortObj
   }
 

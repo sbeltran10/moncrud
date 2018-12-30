@@ -1,0 +1,29 @@
+.row.flex-nowrap.document-container
+  if collection.documents.length <= 0
+    .col No results
+  each field in collection.fieldList
+    .col.field-doc-col
+      .row
+        .col-12.container-cell.document-field= field.key.prettyTitleCase()
+        .col-12
+          - var inputVal = inputValues[field.key];
+          - var sortPrefix = "sort--"
+          - var inputSortVal = inputValues[sortPrefix + field.key];
+          input(name=`${field.key}` type="text" value=`${inputVal?inputVal:''}`)
+        div(class=`col-12 sort-arrow align-self-center sort${inputSortVal}`)
+          input(id=`${sortPrefix + field.key}` class="sort-input" name=`${sortPrefix + field.key}` type="hidden" value=`${inputSortVal?inputSortVal:''}`)
+          span.sort-function.sort-asc(onclick=`sort('${field.key}', -1)`)
+            i.fas.fa-arrow-up
+          span.sort-function.sort-desc(onclick=`sort('${field.key}', 1)`)
+            i.fas.fa-arrow-down
+      each document in collection.documents
+        .row
+          - var keyValue = document[field.key];
+          if field.key === '_id'
+            a(href=`${currentRoute}/${keyValue}`)
+              .col-12.container-cell.document-id= keyValue
+          else
+            if keyValue && (!Array.isArray(keyValue) || (Array.isArray(keyValue) && keyValue.length > 0))
+              .col-12.document-value.container-cell= keyValue
+            else
+              .col-12.document-value.container-cell.no-value No value

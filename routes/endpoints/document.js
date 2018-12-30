@@ -19,4 +19,15 @@ router.get('/:database/:collection/:documentId', (req, res, next) => {
     })
 })
 
+router.post('/:database/:collection/:documentId', (req, res, next) => {
+  documentController.saveData(req)
+    .then(() => {
+      res.redirect(`/main/${req.params.database}/${req.params.collection}/${req.params.documentId}`)
+    })
+    .catch(err => {
+      console.log(err)
+      res.render('error')
+    })
+})
+
 module.exports = router

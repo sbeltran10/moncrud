@@ -9,7 +9,6 @@ module.exports = {
       } else {
         authentication.encryptPassword(req.body.password)
           .then(encryptedPassword => {
-            console.log(req.body)
             dataManager.save({
               key: req.body.username,
               value: {

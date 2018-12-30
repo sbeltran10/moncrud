@@ -7,16 +7,18 @@ block content-main
       .col-auto
         a(href=`${previousPage}`)
           .back-button Go Back
-    form
+    form(id="doc-form" method="POST")
       .row
         .col-12
       .row.document-details
         .col-12
           each field in document.fieldList
             .row.property
-              .col-2.field= field.prettyTitleCase()
+              .col-2.field= field.key.prettyTitleCase()
               .col-8.value
-                input.value-input(disabled=true type='text' value=`${document.data[field]}` )
+                - var disabledInput = (field.inputType!=='text' && field.inputType!=='number')
+                - var inptValue = field.inputType==='date' ? document.data[field.key].toISOString().substr(0, 10) : document.data[field.key]
+                input.value-input(name=field.key disabled=disabledInput type=`${field.inputType}` value=inptValue step="1")
       .row
         .col-auto.offset-2
-          button.save-but(type="submit" disabled=true) Save changes
+          button.save-but(type="submit" disabled=false) Save changes
