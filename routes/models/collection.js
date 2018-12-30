@@ -1,5 +1,6 @@
 //  const Document = require('./collection')
 
+const SORT_SPLIT = 'sort--'
 const PAGE_SIZE = 30
 
 module.exports = class {
@@ -20,7 +21,7 @@ module.exports = class {
 
   getFieldsAndDocuments (collection, parameters, page) {
     return new Promise((resolve, reject) => {
-      collection.find(this.buildQueryObj(parameters)).skip(page * PAGE_SIZE).limit(PAGE_SIZE).toArray()
+      collection.find(this.buildQueryObj(parameters)).sort(this.buildSortObj(parameters)).skip(page * PAGE_SIZE).limit(PAGE_SIZE).toArray()
         .then(documents => {
           documents.forEach(document => {
             for (const key in document) {
@@ -37,6 +38,7 @@ module.exports = class {
             }
           })
           this.fieldList = Object.values(this.fields)
+          console.log(this.fieldList)
           this.documents = documents
           resolve()
         })
@@ -47,11 +49,23 @@ module.exports = class {
     })
   }
 
+  buildSortObj (parameters) {
+    let sortObj = {}
+    for (const key in parameters) {
+      if (parameters.hasOwnProperty(key) && key.startsWith(SORT_SPLIT) && parameters[key]) {
+        const paramName = key.split(SORT_SPLIT)[1]
+        sortObj[paramName] = Number(parameters[key])
+      }
+    }
+    console.log(sortObj)
+    return sortObj
+  }
+
   buildQueryObj (parameters) {
     // TODO: Modify to take into account different types
     let queryObj = {}
     for (const key in parameters) {
-      if (parameters.hasOwnProperty(key) && parameters[key]) {
+      if (parameters.hasOwnProperty(key) && !key.startsWith(SORT_SPLIT) && parameters[key]) {
         queryObj[key] = { $regex: parameters[key], $options: 'i' }
       }
     }

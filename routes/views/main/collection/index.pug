@@ -1,6 +1,7 @@
 extends ../layout
 block imports-main
   link(type="text/css" rel="stylesheet" href="/static/main/collection/style.css")
+  script(src="/static/main/collection/script.js" defer)
 
 block content-main
   - var currentRoute = `/main/${databaseName}/${collection.name}`
@@ -8,7 +9,7 @@ block content-main
     .col-auto
       a(href=`/main/${databaseName}`)
         .back-button Go Back
-  form(method="GET")
+  form(id="col-form" method="GET")
     .row
       h4.col= collection.name.prettyTitleCase()
     .row
@@ -27,7 +28,15 @@ block content-main
             .col-12.container-cell.document-field= field.key.prettyTitleCase()
             .col-12
               - var inputVal = inputValues[field.key];
-              input(name=`${field.key}` type="text" value=`${inputVal?inputVal:''}`) 
+              - var sortPrefix = "sort--"
+              - var inputSortVal = inputValues[sortPrefix + field.key];
+              input(name=`${field.key}` type="text" value=`${inputVal?inputVal:''}`)
+            div(class=`col-12 sort-arrow align-self-center sort${inputSortVal}`)
+              input(id=`${sortPrefix + field.key}` class="sort-input" name=`${sortPrefix + field.key}` type="hidden" value=`${inputSortVal?inputSortVal:''}`)
+              span.sort-function.sort-asc(onclick=`sort('${field.key}', -1)`)
+                i.fas.fa-arrow-up
+              span.sort-function.sort-desc(onclick=`sort('${field.key}', 1)`)
+                i.fas.fa-arrow-down
           each document in collection.documents
             .row
               - var keyValue = document[field.key];

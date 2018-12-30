@@ -48,6 +48,26 @@
   width:100%
 }
 
+.sort-arrow{
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0.2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.sort-1 .sort-asc, .sort1 .sort-desc{
+  color: rgb(86, 166, 247)
+}
+
+.sort-function{
+  width:1.2rem;
+}
+
+.sort-function:hover, .sort-function:focus{
+  opacity: 0.4;
+}
+
 .document-id{
   background-color:  rgb(229,239,249)
 }
