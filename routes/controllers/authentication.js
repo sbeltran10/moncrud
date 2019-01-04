@@ -3,6 +3,7 @@ const authenticationService = require('../services/authentication')
 module.exports = {
   login: req => {
     return new Promise((resolve, reject) => {
+      if (req.body.username) req.body.username = req.body.username.toLowerCase()
       authenticationService.comparePassword(req.body.username, req.body.password)
         .then(result => {
           if (result) {

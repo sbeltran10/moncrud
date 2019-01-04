@@ -10,7 +10,7 @@ module.exports = {
         authentication.encryptPassword(req.body.password)
           .then(encryptedPassword => {
             dataManager.save({
-              key: req.body.username,
+              key: req.body.username.toLowerCase(),
               value: {
                 password: encryptedPassword
               }
