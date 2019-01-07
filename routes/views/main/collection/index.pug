@@ -18,7 +18,7 @@ block content-main
       .col-auto
         button.filter-but(formaction=`${currentRoute}/reset/1` type="submit") Reset filters
     .row
-      .col-12
+      .col-12 Click on an Id to view and edit the entry
     include ./collection-table.pug
     .row.paginate-buttons
       - var disabledPrevious = inputValues.page==0 || !inputValues.page
