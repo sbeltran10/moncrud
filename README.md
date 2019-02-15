@@ -8,3 +8,4 @@
   - TODO: Objects, arrays and dates
 - TODO: Create operations
 - TODO: Delete operations
+- TODO: Improve styling
