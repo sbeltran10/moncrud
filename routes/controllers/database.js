@@ -9,7 +9,7 @@ module.exports = {
         .then(client => {
           const databaseObj = new Database(req.params.database)
           const db = client.db(req.params.database)
-          return databaseObj.loadData(db)
+          return databaseObj.loadData(db, req.query)
         })
         .catch(err => console.log('Connection error ' + err))
         .then((db) => {

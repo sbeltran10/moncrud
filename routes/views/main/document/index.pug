@@ -7,6 +7,14 @@ block content-main
       .col-auto
         a(href=`${previousPage}`)
           .back-button Go Back
+    if success === '1'
+      .row
+        .col-8.offset-2
+          .outcome-msg.success-msg The document was updated succesfully.
+    else if success === '0'
+      .row
+        .col-8.offset-2
+          .outcome-msg.error-msg There was an error updating the document
     form(id="doc-form" method="POST")
       .row
         .col-12

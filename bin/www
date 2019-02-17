@@ -11,7 +11,7 @@ const debug = require('debug')('moncrud:server')
  * Get port from environment and store in Express.
  */
 
-let port = normalizePort(process.env.PORT || '3002')
+let port = normalizePort(process.env.PORT || '3003')
 app.set('port', port)
 
 /**

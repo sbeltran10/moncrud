@@ -1,6 +1,8 @@
+@import '../../styling/variables';
+
 .document-container{
   margin:0.1rem;
-  border: solid 1px lightgray;
+  border: solid 1px $col-border-color;
   border-bottom: none;
   width:fit-content;
   margin-bottom: 1rem;
@@ -14,10 +16,10 @@
 
 .field-doc-col{
   max-width: 15rem;
-  border-right: solid 1px lightgray;
+  border-right: solid 1px $col-border-color;
 
   .row{
-    border-bottom: solid 1px lightgray
+    border-bottom: solid 1px $col-border-color
   }
 }
 
@@ -40,7 +42,7 @@
 }
 
 .no-value{
-  color:grey;
+  color:$primary-color-alt;
   font-style: italic
 }
 
@@ -57,7 +59,7 @@
 }
 
 .sort-1 .sort-asc, .sort1 .sort-desc{
-  color: rgb(86, 166, 247)
+  color: $col-sort-selected;
 }
 
 .sort-function{
@@ -69,7 +71,7 @@
 }
 
 .document-id{
-  background-color:  rgb(229,239,249)
+  background-color: $col-id-background
 }
 
 form input{

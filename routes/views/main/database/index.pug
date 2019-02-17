@@ -1,6 +1,7 @@
 extends ../layout
 block imports-main
   link(type="text/css" rel="stylesheet" href="/static/main/database/style.css")
+  script(src="/static/main/database/script.js" defer)
 
 block content-main
   .row
@@ -9,6 +10,13 @@ block content-main
         .back-button Go Back
   .row
     h4.col= database.name.prettyTitleCase()
+  form#filter-form(method="GET")
+    .row
+      .col-lg-4.col-8.input-group.db-filter
+        input#filter-db.form-control(name='filter' type='search' placeholder='Filter by name')
+        .input-group-append
+          button.clear-but.group-but(type='button' onclick='clearFilter()') Clear
+          button.filter-but.group-but(type='submit') Apply
   .row
     each collection in database.collections
       .col-3

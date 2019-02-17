@@ -1,9 +1,29 @@
-/* apply a natural box layout model to all elements, but allowing components to change */
+@charset "utf-8";
+/* CSS Document */
+
+/* General theme and typography imports */
+// Utility Imports
+@import 'styling/functions';
+@import 'styling/variables';
+@import 'styling/mixins';
+@import 'styling/placeholders';
+
+// Resets
+@import 'styling/resets';
+
+// Typography
+@import 'styling/typography';
+
 html {
   box-sizing: border-box;
 }
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+body{
+  min-height: 100vh;
+  font-size: 0.9rem;
 }
 
 a div{
@@ -31,15 +51,24 @@ a:visited {
   cursor: default;
 }
 
-body{
-  min-height: 100vh;
-}
-
-
 button{
-  background-color: grey;
-  color: white;
+  background-color: $primary-color;
+  color: $button-sec-color;
   border:none;
   padding: 0.4rem 0;
   font-weight: bold;
+  font-size: 0.9rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out, opacity .15s ease-in-out;
 }
+
+button.secondary-but{
+  color: $primary-color;
+  border: solid 1px $primary-color;
+  background-color: $button-sec-color;
+}
+
+.group-but{
+  width: 5rem;
+  font-size: 0.9rem;
+}
+

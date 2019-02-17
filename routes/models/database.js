@@ -4,12 +4,22 @@ module.exports = class {
     this.collections = []
   }
 
-  loadData (db) {
+  loadData (db, parameters) {
     return new Promise((resolve) => {
       db.listCollections().toArray()
         .then(collections => {
           collections.forEach(col => {
-            this.collections.push(col.name)
+            let addCol = false
+            if (parameters.filter) {
+              if (col.name.includes(parameters.filter)) {
+                addCol = true
+              }
+            } else {
+              addCol = true
+            }
+            if (addCol) {
+              this.collections.push(col.name)
+            }
           })
           resolve(this)
         })

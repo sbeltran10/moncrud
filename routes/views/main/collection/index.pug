@@ -16,7 +16,7 @@ block content-main
       .col-auto
         button.filter-but(type="submit") Apply filters
       .col-auto
-        button.filter-but(formaction=`${currentRoute}/reset/1` type="submit") Reset filters
+        button.filter-but.secondary-but(formaction=`${currentRoute}/reset/1` type="submit") Reset filters
     .row
       .col-12 Click on an Id to view and edit the entry
     include ./collection-table.pug
@@ -24,8 +24,8 @@ block content-main
       - var disabledPrevious = inputValues.page==0 || !inputValues.page
       - var disabledNext = collection.documents.length < 30
       .col-auto
-        button.paginate-but(formmethod="GET"
+        button.paginate-but.secondary-but(formmethod="GET"
          formaction=`${currentRoute}/page/${(Number(inputValues.page)-1)}` type="submit" disabled=disabledPrevious) Previous 30
       .col-auto
-        button.paginate-but(formmethod="GET"
+        button.paginate-but.secondary-but(formmethod="GET"
          formaction=`${currentRoute}/page/${(Number(inputValues.page)+1)}` type="submit" disabled=disabledNext) Next 30

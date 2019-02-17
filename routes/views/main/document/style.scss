@@ -1,3 +1,5 @@
+@import '../../styling/variables';
+
 main{
   width:100%
 }
@@ -22,4 +24,22 @@ main{
 
 .save-but{
   padding: 0.4rem
+}
+
+.outcome-msg{
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  width: 100%;
+  padding: 0.3rem; 
+  border-radius: 0.25rem;
+}
+
+.success-msg{
+  color:$primary-color;
+  border: 1px solid $primary-color;
+}
+
+.error-msg{
+  color:$negative-color;
+  border: 1px solid $negative-color;
 }

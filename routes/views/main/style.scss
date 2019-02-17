@@ -1,3 +1,5 @@
+@import '../styling/variables';
+
 header{
   position: fixed;
   width: 100%;
@@ -5,7 +7,7 @@ header{
   left:0;
   padding:0 0.8rem;
   height: 3rem;
-  background-color: lightgrey;
+  background-color: $secondary-color;
   z-index: 1000
 }
 
@@ -13,10 +15,19 @@ header{
   height:100%
 }
 
+.header-row button{
+  background-color: $primary-color-alt
+}
+
+.header-banner{
+  margin-bottom: 0;
+}
+
 body{
   display: flex;
   width:  100%
 }
+
 
 nav, main{
   margin-top: 3rem;
@@ -33,28 +44,28 @@ main h4{
 nav{
   min-width:9.5rem;
   max-width:9.5rem;
-  background-color: grey
+  background-color: $primary-color
 }
 
 .back-button{
-  color: grey;
-  border: solid 1px grey;
-  padding: 0.6rem;
+  color: $primary-color;
+  border: solid 1px $primary-color;
+  padding: 0.3rem 0.6rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
 .nav-item{
   padding:0.8rem;
-  border-bottom: solid 1px white;
-  color: white;
+  border-bottom: solid 1px $button-sec-color;
+  color: $button-sec-color;
   font-weight: bold
 }
 
 .mon-kw{
-  color: darkgreen
+  color: $primary-color-alt
 }
 
 .crud-kw{
-  color:grey
+  color:$primary-color
 }

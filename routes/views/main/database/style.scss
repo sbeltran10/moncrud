@@ -1,5 +1,19 @@
+@import '../../styling/variables';
+
 .collection-item{
   padding: 1rem;
-  background-color: lightgray;
+  background-color: $secondary-color;
   margin-bottom: 1rem;
+}
+
+.db-filter{
+  margin-bottom: 1rem;
+}
+
+main{
+  width:100%
+}
+
+button.clear-but{
+  background-color: $primary-color-alt
 }
