@@ -14,6 +14,9 @@
 // Typography
 @import 'styling/typography';
 
+// Elements styling
+@import 'styling/checkboxes';
+
 html {
   box-sizing: border-box;
 }
@@ -71,4 +74,3 @@ button.secondary-but{
   width: 5rem;
   font-size: 0.9rem;
 }
-

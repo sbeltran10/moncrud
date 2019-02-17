@@ -29,6 +29,7 @@ module.exports = class {
         this.fieldList.push({ key, inputType: null, objectType: null })
       } else {
         const objectType = typeof document[key]
+        console.log(objectType)
         let inputType
         switch (objectType) {
           case 'string':
@@ -61,6 +62,7 @@ module.exports = class {
 
   saveData (db, collection, updateObj) {
     return new Promise((resolve, reject) => {
+      console.log(updateObj)
       this.loadData(db, collection)
         .then(() => {
           for (const field of this.fieldList) {
@@ -68,6 +70,9 @@ module.exports = class {
               switch (field.objectType) {
                 case 'number':
                   updateObj[field.key] = Number(updateObj[field.key])
+                  break
+                case 'boolean':
+                  updateObj[field.key] = Array.isArray(updateObj[field.key])
                   break
                 default:
                   updateObj[field.key] = updateObj[field.key].toString()
