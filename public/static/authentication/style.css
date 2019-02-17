@@ -3,16 +3,16 @@ body {
 
 main.container {
   margin-top: 10%;
-  border: solid 1px lightgray;
+  border: solid 1px #cdcdcd;
   width: fit-content;
   max-width: 25rem;
   padding: 3rem 4rem; }
 
 .mon-kw {
-  color: darkgreen; }
+  color: #3D8B37; }
 
 .crud-kw {
-  color: grey; }
+  color: #5e5e5e; }
 
 .initial-text {
   margin-bottom: 1rem; }
@@ -22,5 +22,5 @@ form input.col {
   margin-bottom: 1rem; }
 
 .error-msg {
-  color: darkred;
+  color: #b20000;
   margin-bottom: 1rem; }

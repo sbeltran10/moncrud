@@ -1,21 +1,23 @@
+@import '../styling/variables';
+
 body{
   min-height: fit-content;
 }
 
 main.container{
   margin-top: 10%;
-  border: solid 1px lightgray;
+  border: solid 1px $col-border-color;
   width: fit-content;
   max-width: 25rem;
   padding:3rem 4rem
 }
 
 .mon-kw{
-  color: darkgreen
+  color: $primary-color
 }
 
 .crud-kw{
-  color:grey
+  color:$primary-color-alt
 }
 
 .initial-text{
@@ -28,6 +30,6 @@ form input.col{
 }
 
 .error-msg{
-  color: darkred;
+  color: $negative-color;
   margin-bottom: 1rem
 }
