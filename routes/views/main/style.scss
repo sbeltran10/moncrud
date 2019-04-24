@@ -1,53 +1,53 @@
-@import '../styling/variables';
+@import "../styling/variables";
 
-header{
+header {
   position: fixed;
   width: 100%;
-  top:0;
-  left:0;
-  padding:0 0.8rem;
+  top: 0;
+  left: 0;
+  padding: 0 0.8rem;
   height: 3rem;
   background-color: $secondary-color;
-  z-index: 1000
+  z-index: 1000;
 }
 
-.header-row{
-  height:100%
+.header-row {
+  height: 100%;
 }
 
-.header-row button{
-  background-color: $primary-color-alt
+.header-row button {
+  background-color: $primary-color-alt;
 }
 
-.header-banner{
+.header-banner {
   margin-bottom: 0;
 }
 
-body{
+body {
   display: flex;
-  width:  100%
+  width: 100%;
 }
 
-
-nav, main{
+nav,
+main {
   margin-top: 3rem;
 }
 
-main{
+main {
   padding: 1rem;
 }
 
-main h4{
+main h4 {
   margin-bottom: 1rem;
 }
 
-nav{
-  min-width:9.5rem;
-  max-width:9.5rem;
-  background-color: $primary-color
+nav {
+  min-width: 9.5rem;
+  max-width: 9.5rem;
+  background-color: $primary-color;
 }
 
-.back-button{
+.back-button {
   color: $primary-color;
   border: solid 1px $primary-color;
   padding: 0.3rem 0.6rem;
@@ -55,17 +55,23 @@ nav{
   margin-bottom: 1rem;
 }
 
-.nav-item{
-  padding:0.8rem;
+.nav-item {
+  padding: 0.8rem;
   border-bottom: solid 1px $button-sec-color;
   color: $button-sec-color;
-  font-weight: bold
+  font-weight: bold;
 }
 
-.mon-kw{
-  color: $primary-color-alt
+.mon-kw {
+  color: $primary-color-alt;
 }
 
-.crud-kw{
-  color:$primary-color
+.crud-kw {
+  color: $primary-color;
+}
+
+.app-button {
+  width: 9rem;
+  padding: 0.5rem;
+  margin-bottom: 0.7rem;
 }

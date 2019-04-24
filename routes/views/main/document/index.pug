@@ -1,12 +1,14 @@
 extends ../layout
 block imports-main
   link(type="text/css" rel="stylesheet" href="/static/main/document/style.css")
+  script(src="/static/main/document/script.js" defer)
 
 block content-main
     .row
       .col-auto
         a(href=`${previousPage}`)
           .back-button Go Back
+
     if success === '1'
       .row
         .col-6.offset-2
@@ -15,6 +17,7 @@ block content-main
       .row
         .col-6.offset-2
           .outcome-msg.error-msg There was an error updating the fields
+                    
     form(id="doc-form" method="POST")
       .row
         .col-12
@@ -39,4 +42,6 @@ block content-main
                   
       .row
         .col-auto.offset-2
-          button.save-but(type="submit" disabled=false) Save changes
+          button.app-button(type="submit" disabled=false) Save changes
+        .col-auto
+          button.app-button.danger-but(type="button" onclick="deleteData()") Delete

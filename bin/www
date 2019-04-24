@@ -14,6 +14,8 @@ const debug = require('debug')('moncrud:server')
 let port = normalizePort(process.env.PORT || '3003')
 app.set('port', port)
 
+console.log(`Listening on port ${port}`)
+
 /**
  * Create HTTP server.
  */
