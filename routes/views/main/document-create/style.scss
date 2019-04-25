@@ -25,11 +25,6 @@ main {
   border-radius: 0.25rem;
 }
 
-.success-msg {
-  color: $primary-color;
-  border: 1px solid $primary-color;
-}
-
 .error-msg {
   color: $negative-color;
   border: 1px solid $negative-color;
@@ -39,4 +34,12 @@ main {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   height: 2rem;
+}
+
+.add-field{
+  margin-top: 1rem;
+  input{
+    text-align: right;
+    margin-bottom: 0.7rem;
+  }
 }

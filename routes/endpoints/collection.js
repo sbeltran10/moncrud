@@ -3,15 +3,16 @@ const collectionController = require('../controllers/collection')
 const connectionManager = require('../services/connection-manager')
 const router = express.Router()
 
-const handleRequest = (req, res, next) => {
-  collectionController.getData(req)
+const handleGetRequest = (req, res, next) => {
+  collectionController.performOperation(req)
     .then(collection => {
       res.render('main/collection',
         {
           connections: connectionManager.connections,
-          collection: collection,
+          collection,
           inputValues: { page: req.params.page ? req.params.page : '0', ...req.query },
-          databaseName: req.params.database
+          databaseName: req.params.database,
+          collectionQuery: req.query
         })
     })
     .catch(err => {
@@ -20,10 +21,37 @@ const handleRequest = (req, res, next) => {
     })
 }
 
-router.get('/:database/:collection', handleRequest)
-router.get('/:database/:collection/page/:page', handleRequest)
+router.get('/:database/:collection', handleGetRequest)
+router.get('/:database/:collection/page/:page', handleGetRequest)
 router.get('/:database/:collection/reset/1', (req, res) => {
   res.redirect(`/main/${req.params.database}/${req.params.collection}`)
+})
+
+router.get('/:database/:collection/create', (req, res, next) => {
+  collectionController.performOperation(req, 'create-form')
+    .then((collection) => {
+      res.render('main/document-create', {
+        previousPage: '../' + req.params.collection,
+        connections: connectionManager.connections,
+        collection,
+        databaseName: req.params.database
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.render('error')
+    })
+})
+
+router.post('/:database/:collection/create', (req, res, next) => {
+  collectionController.performOperation(req, 'create')
+    .then(() => {
+      res.redirect(`/main/${req.params.database}/${req.params.collection}`)
+    })
+    .catch(err => {
+      console.log(err)
+      res.render('error')
+    })
 })
 
 module.exports = router

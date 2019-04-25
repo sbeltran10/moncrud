@@ -1,5 +1,3 @@
-//  const Document = require('./collection')
-
 const SORT_SPLIT = 'sort--'
 const PAGE_SIZE = 30
 
@@ -19,7 +17,7 @@ module.exports = class {
     })
   }
 
-  getFieldsAndDocuments (collection, parameters, page) {
+  getFieldsAndDocuments (collection, parameters, page, loadDocuments = true) {
     return new Promise((resolve, reject) => {
       collection.find(this.buildQueryObj(parameters)).sort(this.buildSortObj(parameters)).skip(page * PAGE_SIZE).limit(PAGE_SIZE).toArray()
         .then(documents => {
@@ -38,7 +36,7 @@ module.exports = class {
             }
           })
           this.fieldList = Object.values(this.fields)
-          this.documents = documents
+          if (loadDocuments) this.documents = documents
           resolve()
         })
         .catch(err => {
@@ -68,5 +66,40 @@ module.exports = class {
       }
     }
     return queryObj
+  }
+
+  getFormData (db, parameters, page = 0) {
+    return new Promise((resolve, reject) => {
+      this.getFieldsAndDocuments(db.collection(this.name), parameters, page, false)
+        .then(() => {
+          this.fieldList.forEach((field, index) => {
+            let inputType
+            switch (field.type) {
+              case 'string':
+                inputType = 'text'
+                break
+              case 'number':
+                inputType = 'number'
+                break
+              case 'boolean':
+                inputType = 'checkbox'
+                break
+              default:
+                inputType = 'na'
+                break
+            }
+            this.fieldList[index].inputType = inputType
+          })
+
+          this.fieldList = this.fieldList.filter(field => field.inputType !== 'na' && field.key !== '_id')
+          console.log(this)
+          resolve(this)
+        })
+        .catch((err) => reject(err))
+    })
+  }
+
+  createDocument (db, object) {
+
   }
 }

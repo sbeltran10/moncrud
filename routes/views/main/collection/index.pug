@@ -7,14 +7,18 @@ block content-main
   - var currentRoute = `/main/${databaseName}/${collection.name}`
   .row
     .col-auto
-      a(href=`/main/${databaseName}`)
+      a(href=`/main/${databaseName}?${collectionQuery}`)
         .back-button Go Back
+  .row
+    h4.col= collection.name.prettyTitleCase()
+  .row
+    .col-auto
+      a(href=`${currentRoute}/create?`)
+        button.app-button(type="button") Create entry
   form(id="col-form" method="GET")
     .row
-      h4.col= collection.name.prettyTitleCase()
-    .row
       .col-auto
-        button.app-button(type="submit") Apply filters
+        button.app-button.secondary-but(type="submit") Apply filters
       .col-auto
         button.app-button.secondary-but(formaction=`${currentRoute}/reset/1` type="submit") Reset filters
     .row
