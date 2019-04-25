@@ -18,7 +18,7 @@ block content-main
       .row
         .col-12
       .row.document-details
-        .col-12
+        #fields-col.col-12
           each field in collection.fieldList
             .row.property
               .col-2.field.align-self-center= field.key.prettyTitleCase()
@@ -40,9 +40,10 @@ block content-main
                     input.value-input(name=field.key type=`hidden` value="false")
                     span.checkmark
 
+        .col-12
           .row.add-field
             .col-2.field.align-self-center.d-flex
-              input.value-input.justify-content-start(id="new-field" placeholder="Field name")
+              input#new-field.value-input.justify-content-start(placeholder="Field name")
             .col-auto.align-self-center.d-flex
               button.app-button.secondary-but(type="button" onclick="addField()") Add field
                   

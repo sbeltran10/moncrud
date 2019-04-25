@@ -85,3 +85,5 @@ data/*.json
 
 # Compiled css files in public folder
 public/**/*.css
+
+public/static/common/bundle.js
