@@ -21,6 +21,7 @@ module.exports = class {
               this.collections.push(col.name)
             }
           })
+          this.collections.sort()
           resolve(this)
         })
     })
