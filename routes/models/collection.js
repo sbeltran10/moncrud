@@ -1,5 +1,6 @@
 const SORT_SPLIT = 'sort--'
 const PAGE_SIZE = 30
+const ObjectID = require('mongodb').ObjectID
 
 module.exports = class {
   constructor (name) {
@@ -19,24 +20,32 @@ module.exports = class {
 
   getFieldsAndDocuments (collection, parameters, page, loadDocuments = true) {
     return new Promise((resolve, reject) => {
+      let createdId
+      if (parameters.createdId) {
+        createdId = parameters.createdId
+        delete parameters.createdId
+      }
+
       collection.find(this.buildQueryObj(parameters)).sort(this.buildSortObj(parameters)).skip(page * PAGE_SIZE).limit(PAGE_SIZE).toArray()
         .then(documents => {
           documents.forEach(document => {
-            for (const key in document) {
-              if (document.hasOwnProperty(key) && document[key]) {
-                if (!this.fields[key]) {
-                  this.fields[key] = {
-                    key: key,
-                    type: typeof document[key]
-                  }
-                } else if (this.fields[key].type !== typeof document[key]) { // eslint-disable-line
-                  this.fields[key].type = 'mixed'
-                }
-              }
-            }
+            this.getFieldsAndDocument(document)
           })
-          this.fieldList = Object.values(this.fields)
           if (loadDocuments) this.documents = documents
+          if (createdId) {
+            return collection.findOne({ _id: new ObjectID(createdId) })
+          } else {
+            this.fieldList = Object.values(this.fields)
+            resolve()
+          }
+        })
+        .then((document) => {
+          if (document) {
+            console.log(document)
+            this.getFieldsAndDocument(document)
+            this.fieldList = Object.values(this.fields)
+            this.documents = [document, ...this.documents]
+          }
           resolve()
         })
         .catch(err => {
@@ -92,7 +101,6 @@ module.exports = class {
           })
 
           this.fieldList = this.fieldList.filter(field => field.inputType !== 'na' && field.key !== '_id')
-          console.log(this)
           resolve(this)
         })
         .catch((err) => reject(err))
@@ -100,6 +108,27 @@ module.exports = class {
   }
 
   createDocument (db, object) {
+    return new Promise((resolve, reject) => {
+      db.collection(this.name).insertOne(object)
+        .then((result) => {
+          resolve(result.insertedId)
+        })
+        .catch((err) => reject(err))
+    })
+  }
 
+  getFieldsAndDocument (document) {
+    for (const key in document) {
+      if (document.hasOwnProperty(key) && document[key]) {
+        if (!this.fields[key]) {
+          this.fields[key] = {
+            key: key,
+            type: typeof document[key]
+          }
+        } else if (this.fields[key].type !== typeof document[key]) { // eslint-disable-line
+          this.fields[key].type = 'mixed'
+        }
+      }
+    }
   }
 }

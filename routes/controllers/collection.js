@@ -19,8 +19,8 @@ module.exports = {
           }
         })
         .catch(err => console.log('Connection error ' + err))
-        .then((collection) => {
-          resolve(collection)
+        .then((data) => {
+          resolve(data)
         })
         .catch(err => reject(err))
     })

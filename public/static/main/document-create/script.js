@@ -9,19 +9,29 @@ let selectChange = function (select) {
 
 let addField = function () {
   let fieldName = document.getElementById('new-field').value
-  let elementExists = document.getElementsByName(fieldName)
-  if (elementExists.length > 0) {
+  let regex = RegExp('^[A-Za-z].*')
+
+  if (!fieldName || !regex.test(fieldName)) {
     Swal.fire({
       type: 'error',
       title: 'Operation failed',
-      text: 'A field already exist with that name, please choose another name'
+      text: 'The field name must start with a letter'
     })
-  }
-  else {
-    let newElement = generateFieldElements(fieldName)
-    $('#fields-col').append(newElement)
+  } else {
+    let elementExists = document.getElementsByName(changeCase.camelCase(fieldName))
+    if (elementExists.length > 0) {
+      Swal.fire({
+        type: 'error',
+        title: 'Operation failed',
+        text: 'A field already exist with that name, please choose another name'
+      })
+    } else {
+      let newElement = generateFieldElements(fieldName)
+      $('#fields-col').append(newElement)
+    }
   }
 
+  document.getElementById('new-field').value = ''
 }
 
 let generateInput = function (inputType, inputName) {
@@ -47,17 +57,17 @@ let generateFieldElements = function (inputName) {
   let mainRow = $(`<div class="row property"></div>`)
 
   // Pretty title case
-  let fieldNameCol = $(`<div class="col-2 field align-self-center">${inputName}</div>`)
+  let fieldNameCol = $(`<div class="col-2 field align-self-center">${changeCase.titleCase(inputName)}</div>`)
   let selectGroup = $(
     `<div class="col-auto align-self-center">
-    <select class="value-input" id="${changeCase.camelCase(fieldName)}---option-type" onchange="selectChange(this)">
+    <select class="value-input" id="${changeCase.camelCase(inputName)}---option-type" onchange="selectChange(this)">
       <option value="text" selected=true >Text</option>
       <option value="number"  >Number</option>
       <option value="checkbox"  >True/False</option>
     </select>
   </div>`)
-  let valueCol = $(`<div class="col-6 value align-self-center d-flex" id="${changeCase.camelCase(fieldName)}---col"></div>`)
-  let valueInput = generateInput('text', changeCase.camelCase(fieldName))
+  let valueCol = $(`<div class="col-6 value align-self-center d-flex" id="${changeCase.camelCase(inputName)}---col"></div>`)
+  let valueInput = generateInput('text', changeCase.camelCase(inputName))
 
   valueCol.append(valueInput)
 

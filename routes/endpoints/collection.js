@@ -4,6 +4,11 @@ const connectionManager = require('../services/connection-manager')
 const router = express.Router()
 
 const handleGetRequest = (req, res, next) => {
+  let createdId = ''
+  if (req.query.createdId) {
+    createdId = req.query.createdId
+  }
+
   collectionController.performOperation(req)
     .then(collection => {
       res.render('main/collection',
@@ -12,7 +17,8 @@ const handleGetRequest = (req, res, next) => {
           collection,
           inputValues: { page: req.params.page ? req.params.page : '0', ...req.query },
           databaseName: req.params.database,
-          collectionQuery: req.query
+          collectionQuery: req.query,
+          createdId
         })
     })
     .catch(err => {
@@ -45,8 +51,8 @@ router.get('/:database/:collection/create', (req, res, next) => {
 
 router.post('/:database/:collection/create', (req, res, next) => {
   collectionController.performOperation(req, 'create')
-    .then(() => {
-      res.redirect(`/main/${req.params.database}/${req.params.collection}`)
+    .then((createdId) => {
+      res.redirect(`/main/${req.params.database}/${req.params.collection}?createdId=${createdId}`)
     })
     .catch(err => {
       console.log(err)
