@@ -1,5 +1,6 @@
 const SORT_SPLIT = 'sort--'
-const PAGE_SIZE = 30
+const PAGE_SIZE = 50
+const MAX_PAGE_AMOUNT = 20
 const ObjectID = require('mongodb').ObjectID
 
 module.exports = class {
@@ -8,11 +9,15 @@ module.exports = class {
     this.fields = {}
     this.fieldList = []
     this.documents = []
+    this.count = 0
   }
 
-  loadData (db, parameters, page = 0) {
+  loadData (db, parameters, page = 1) {
     return new Promise((resolve, reject) => {
       this.getFieldsAndDocuments(db.collection(this.name), parameters, page)
+        .then(() => {
+          return this.countDocuments(db)
+        })
         .then(() => resolve(this))
         .catch((err) => reject(err))
     })
@@ -26,7 +31,7 @@ module.exports = class {
         delete parameters.createdId
       }
 
-      collection.find(this.buildQueryObj(parameters)).sort(this.buildSortObj(parameters)).skip(page * PAGE_SIZE).limit(PAGE_SIZE).toArray()
+      collection.find(this.buildQueryObj(parameters)).sort(this.buildSortObj(parameters)).skip((page - 1) * PAGE_SIZE).limit(PAGE_SIZE).toArray()
         .then(documents => {
           documents.forEach(document => {
             this.getFieldsAndDocument(document)
@@ -114,6 +119,25 @@ module.exports = class {
           resolve(result.insertedId)
         })
         .catch((err) => reject(err))
+    })
+  }
+
+  countDocuments (db) {
+    return new Promise((resolve, reject) => {
+      db.collection(this.name).countDocuments({}, { maxTimeMS: 5000 })
+        .then((result) => {
+          if (result / PAGE_SIZE <= MAX_PAGE_AMOUNT) {
+            this.count = result
+          }
+          resolve()
+        })
+        .catch((err) => {
+          if (err.code === 50) {
+            resolve()
+          } else {
+            reject(err)
+          }
+        })
     })
   }
 

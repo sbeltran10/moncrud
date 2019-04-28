@@ -24,12 +24,28 @@ block content-main
     .row
       .col-12 Click on an Id to view and edit the entry
     include ./collection-table.pug
-    .row.paginate-buttons
-      - var disabledPrevious = inputValues.page==0 || !inputValues.page
-      - var disabledNext = collection.documents.length < 30
-      .col-auto
-        button.app-button.secondary-but(formmethod="GET"
-         formaction=`${currentRoute}/page/${(Number(inputValues.page)-1)}` type="submit" disabled=disabledPrevious) Previous 30
-      .col-auto
-        button.app-button.secondary-but(formmethod="GET"
-         formaction=`${currentRoute}/page/${(Number(inputValues.page)+1)}` type="submit" disabled=disabledNext) Next 30
+    
+    - var disabledPrevious = inputValues.page==1 || !inputValues.page
+    - var disabledNext = collection.documents.length < 50
+    if collection.count
+      .row.paginate-buttons
+        .col-auto
+          nav(aria-label="Page navigation example")
+            ul.pagination
+              li.page-item
+                button.page-link(formmethod="GET" formaction=`${currentRoute}/page/${(Number(inputValues.page)-1)}` type="submit" disabled=disabledPrevious) Previous
+              - for (var x = 0; x < collection.count; x+=50)
+                  li.page-item
+                    button.page-link(formmethod="GET" formaction=`${currentRoute}/page/${x/50+1}` type="submit")=(x/50)+1
+
+              li.page-item
+                button.page-link(formmethod="GET" formaction=`${currentRoute}/page/${(Number(inputValues.page)+1)}` type="submit" disabled=disabledNext) Next
+    else
+      .row.paginate-buttons
+        .col-auto
+          button.app-button.secondary-but(formmethod="GET"
+          formaction=`${currentRoute}/page/${(Number(inputValues.page)-1)}` type="submit" disabled=disabledPrevious) Previous
+        .col-auto
+          button.app-button.secondary-but(formmethod="GET"
+          formaction=`${currentRoute}/page/${(Number(inputValues.page)+1)}` type="submit" disabled=disabledNext) Next
+      
