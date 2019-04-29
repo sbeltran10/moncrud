@@ -2,6 +2,9 @@ extends ../layout
 block imports-main
   link(type="text/css" rel="stylesheet" href="/static/main/collection/style.css")
   script(src="/static/main/collection/script.js" defer)
+  script var collectionCount = !{JSON.stringify(collection.count).replace(/<\//g, '<\\/')}
+  script var page = !{JSON.stringify(inputValues.page).replace(/<\//g, '<\\/')}
+  script var currentRoute = `/main/${!{JSON.stringify(databaseName)}}/${!{JSON.stringify(collection.name)}}`
 
 block content-main
   - var currentRoute = `/main/${databaseName}/${collection.name}`
@@ -24,12 +27,19 @@ block content-main
     .row
       .col-12 Click on an Id to view and edit the entry
     include ./collection-table.pug
-    .row.paginate-buttons
-      - var disabledPrevious = inputValues.page==0 || !inputValues.page
-      - var disabledNext = collection.documents.length < 30
-      .col-auto
-        button.app-button.secondary-but(formmethod="GET"
-         formaction=`${currentRoute}/page/${(Number(inputValues.page)-1)}` type="submit" disabled=disabledPrevious) Previous 30
-      .col-auto
-        button.app-button.secondary-but(formmethod="GET"
-         formaction=`${currentRoute}/page/${(Number(inputValues.page)+1)}` type="submit" disabled=disabledNext) Next 30
+    
+    - var disabledPrevious = inputValues.page==1 || !inputValues.page
+    - var disabledNext = collection.documents.length < 50
+    if collection.count
+      .row.paginate-buttons
+        #pagination-container.col-auto
+          
+    else
+      .row.paginate-buttons
+        .col-auto
+          button.app-button.secondary-but(formmethod="GET"
+          formaction=`${currentRoute}/page/${(Number(inputValues.page)-1)}` type="submit" disabled=disabledPrevious) Previous
+        .col-auto
+          button.app-button.secondary-but(formmethod="GET"
+          formaction=`${currentRoute}/page/${(Number(inputValues.page)+1)}` type="submit" disabled=disabledNext) Next
+      

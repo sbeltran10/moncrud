@@ -3,33 +3,35 @@
 
 /* General theme and typography imports */
 // Utility Imports
-@import 'styling/functions';
-@import 'styling/variables';
-@import 'styling/mixins';
-@import 'styling/placeholders';
+@import "styling/functions";
+@import "styling/variables";
+@import "styling/mixins";
+@import "styling/placeholders";
 
 // Resets
-@import 'styling/resets';
+@import "styling/resets";
 
 // Typography
-@import 'styling/typography';
+@import "styling/typography";
 
 // Elements styling
-@import 'styling/checkboxes';
+@import "styling/checkboxes";
 
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
-body{
+body {
   min-height: 100vh;
   font-size: 0.9rem;
 }
 
-a div{
+a div {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -38,7 +40,11 @@ a div{
   user-select: none;
 }
 
-a div:hover, a div:focus, button:hover, button:focus, button:disabled{
+a div:hover,
+a div:focus,
+button:hover,
+button:focus,
+button:disabled {
   opacity: 0.6;
 }
 
@@ -54,27 +60,86 @@ a:visited {
   cursor: default;
 }
 
-button{
+button {
   background-color: $primary-color;
   color: $button-sec-color;
-  border:none;
+  border: none;
   padding: 0.4rem 0;
   font-weight: bold;
   font-size: 0.9rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out, opacity .15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, opacity 0.15s ease-in-out;
 }
 
-button.secondary-but{
+button.secondary-but {
   color: $primary-color;
   border: solid 1px $primary-color;
   background-color: $button-sec-color;
 }
 
-button.danger-but{
+button.danger-but {
   background-color: $negative-color;
 }
 
-.group-but{
+.group-but {
   width: 5rem;
   font-size: 0.9rem;
+}
+
+/* Pagination styling */
+.paginate-buttons {
+  display: flex;
+  ul {
+    list-style: none;
+    display: flex;
+
+    li {
+      a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        min-width: 2.5rem;
+        min-height: 2.5rem;
+        font-size: 1rem;
+        color: $primary-color;
+        text-decoration: none;
+
+        &:hover {
+          background-color: $primary-color;
+          color: white;
+          opacity: 0.5;
+        }
+      }
+    }
+    .paginationjs-prev,
+    .paginationjs-next {
+      a {
+        border: 1px solid $primary-color;
+      }
+    }
+
+    .paginationjs-page,
+    .paginationjs-ellipsis {
+      a {
+        border-top: 1px solid $primary-color;
+        border-bottom: 1px solid $primary-color;
+      }
+    }
+
+    .paginationjs-prev.disabled,
+    .paginationjs-next.disabled {
+      a {
+        background-color: $primary-color;
+        color: white;
+        opacity: 0.5;
+      }
+    }
+
+    .paginationjs-page.active {
+      a {
+        background-color: $primary-color;
+        color: white;
+      }
+    }
+  }
 }
