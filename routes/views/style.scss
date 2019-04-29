@@ -88,8 +88,58 @@ button.danger-but {
 /* Pagination styling */
 .paginate-buttons {
   display: flex;
-  justify-content: center;
-  nav{
-    background-color: white;
+  ul {
+    list-style: none;
+    display: flex;
+
+    li {
+      a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        min-width: 2.5rem;
+        min-height: 2.5rem;
+        font-size: 1rem;
+        color: $primary-color;
+        text-decoration: none;
+
+        &:hover {
+          background-color: $primary-color;
+          color: white;
+          opacity: 0.5;
+        }
+      }
+    }
+    .paginationjs-prev,
+    .paginationjs-next {
+      a {
+        border: 1px solid $primary-color;
+      }
+    }
+
+    .paginationjs-page,
+    .paginationjs-ellipsis {
+      a {
+        border-top: 1px solid $primary-color;
+        border-bottom: 1px solid $primary-color;
+      }
+    }
+
+    .paginationjs-prev.disabled,
+    .paginationjs-next.disabled {
+      a {
+        background-color: $primary-color;
+        color: white;
+        opacity: 0.5;
+      }
+    }
+
+    .paginationjs-page.active {
+      a {
+        background-color: $primary-color;
+        color: white;
+      }
+    }
   }
 }

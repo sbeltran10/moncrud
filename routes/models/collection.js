@@ -72,7 +72,6 @@ module.exports = class {
   }
 
   buildQueryObj (parameters) {
-    // TODO: Modify to take into account different types
     let queryObj = {}
     for (const key in parameters) {
       if (parameters.hasOwnProperty(key) && !key.startsWith(SORT_SPLIT) && parameters[key]) {
@@ -126,9 +125,7 @@ module.exports = class {
     return new Promise((resolve, reject) => {
       db.collection(this.name).countDocuments({}, { maxTimeMS: 5000 })
         .then((result) => {
-          if (result / PAGE_SIZE <= MAX_PAGE_AMOUNT) {
-            this.count = result
-          }
+          this.count = result
           resolve()
         })
         .catch((err) => {

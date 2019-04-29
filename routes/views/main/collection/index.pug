@@ -2,6 +2,9 @@ extends ../layout
 block imports-main
   link(type="text/css" rel="stylesheet" href="/static/main/collection/style.css")
   script(src="/static/main/collection/script.js" defer)
+  script var collectionCount = !{JSON.stringify(collection.count).replace(/<\//g, '<\\/')}
+  script var page = !{JSON.stringify(inputValues.page).replace(/<\//g, '<\\/')}
+  script var currentRoute = `/main/${!{JSON.stringify(databaseName)}}/${!{JSON.stringify(collection.name)}}`
 
 block content-main
   - var currentRoute = `/main/${databaseName}/${collection.name}`
@@ -29,17 +32,8 @@ block content-main
     - var disabledNext = collection.documents.length < 50
     if collection.count
       .row.paginate-buttons
-        .col-auto
-          nav(aria-label="Page navigation example")
-            ul.pagination
-              li.page-item
-                button.page-link(formmethod="GET" formaction=`${currentRoute}/page/${(Number(inputValues.page)-1)}` type="submit" disabled=disabledPrevious) Previous
-              - for (var x = 0; x < collection.count; x+=50)
-                  li.page-item
-                    button.page-link(formmethod="GET" formaction=`${currentRoute}/page/${x/50+1}` type="submit")=(x/50)+1
-
-              li.page-item
-                button.page-link(formmethod="GET" formaction=`${currentRoute}/page/${(Number(inputValues.page)+1)}` type="submit" disabled=disabledNext) Next
+        #pagination-container.col-auto
+          
     else
       .row.paginate-buttons
         .col-auto
