@@ -30,7 +30,7 @@ block content-main
                 - var disabledInput = (field.inputType!=='text' && field.inputType!=='number' && field.inputType!=='checkbox')
                 - var inptValue = field.inputType==='date' ? document.data[field.key].toISOString().substr(0, 10) : document.data[field.key]
                 if (field.inputType === 'text' || field.inputType === 'number')
-                  input.value-input.justify-content-start(name=field.key disabled=disabledInput type=`${field.inputType}` value=inptValue step="1")
+                  input.value-input.justify-content-start(name=field.key disabled=disabledInput type=`${field.inputType}` value=inptValue step="any")
                 else if field.inputType === 'checkbox'
                   label.check-container
                     - var checked = document.data[field.key]
@@ -38,7 +38,7 @@ block content-main
                     input.value-input(name=field.key type=`hidden` value="false")
                     span.checkmark
                 else
-                  input.value-input.justify-content-start(name=field.key disabled=disabledInput type=`${field.inputType}` value=inptValue step="1")
+                  input.value-input.justify-content-start(name=field.key disabled=disabledInput type=`${field.inputType}` value=inptValue step="any")
                   
       .row
         .col-auto.offset-2

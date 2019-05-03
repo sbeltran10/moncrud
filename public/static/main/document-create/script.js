@@ -37,7 +37,7 @@ let addField = function () {
 let generateInput = function (inputType, inputName) {
   switch (inputType) {
     case 'number':
-      return $(`<input class="value-input justify-content-start" name="${inputName}" type="number">`)
+      return $(`<input class="value-input justify-content-start" name="${inputName}" type="number" step="any">`)
     case 'checkbox':
       let checkContainer = $(`<label class="check-container"></label>`)
       let inputVisible = $(`<input class="value-input" name="${inputName}" type="checkbox" value="true">`)
@@ -54,13 +54,13 @@ let generateInput = function (inputType, inputName) {
 }
 
 let generateFieldElements = function (inputName) {
-  let mainRow = $(`<div class="row property"></div>`)
+  let mainRow = $(`<div id="${inputName}---row" class="row property"></div>`)
 
   // Pretty title case
   let fieldNameCol = $(`<div class="col-2 field align-self-center">${changeCase.titleCase(inputName)}</div>`)
   let selectGroup = $(
     `<div class="col-auto align-self-center">
-    <select class="value-input" id="${changeCase.camelCase(inputName)}---option-type" onchange="selectChange(this)">
+    <select class="value-input" id="${changeCase.camelCase(inputName)}---option-type" name="${inputName}___input_type" onchange="selectChange(this)">
       <option value="text" selected=true >Text</option>
       <option value="number"  >Number</option>
       <option value="checkbox"  >True/False</option>
@@ -76,4 +76,8 @@ let generateFieldElements = function (inputName) {
   mainRow.append(valueCol)
 
   return mainRow
+}
+
+let removeField = function (field) {
+  $(`#${field}---row`).remove()
 }
