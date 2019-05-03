@@ -25,8 +25,6 @@ $('document').ready(function () {
 
       const queryParams = window.location.search
 
-      console.log($('.paginationjs-prev').first())
-
       $('.paginationjs-prev a').first().attr("href", `${currentRoute}/page/${(Number(page != 0 ? page : 1)-1)}${queryParams}`)
       $('.paginationjs-next a').first().attr("href", `${currentRoute}/page/${(Number(page != 0 ? page : 1)+1)}${queryParams}`)
 

@@ -20,25 +20,28 @@ block content-main
       .row.document-details
         #fields-col.col-12
           each field in collection.fieldList
-            .row.property
+            .row.property(id=`${field.key}---row`)
               .col-2.field.align-self-center= field.key.prettyTitleCase()
               .col-auto.align-self-center
                 - var selectedText = field.inputType === 'text'
                 - var selectedNumber = field.inputType === 'number'
                 - var selectedCheckbox = field.inputType === 'checkbox'
-                select.value-input(id=`${field.key}---option-type` onchange="selectChange(this)")
+                select.value-input(id=`${field.key}---option-type` name=`${field.key}___input_type` onchange="selectChange(this)")
                   option(value='text' selected=selectedText) Text
                   option(value='number' selected=selectedNumber) Number
                   option(value='checkbox' selected=selectedCheckbox) True/False
 
               .col-6.value.align-self-center.d-flex(id=`${field.key}---col`)
                 if (field.inputType === 'text' || field.inputType === 'number')
-                  input.value-input.justify-content-start(name=field.key type=`${field.inputType}` step="1")
+                  input.value-input.justify-content-start(name=field.key type=`${field.inputType}` step="any")
                 else if field.inputType === 'checkbox'
                   label.check-container
                     input.value-input(name=field.key type=`${field.inputType}` value="true")
                     input.value-input(name=field.key type=`hidden` value="false")
                     span.checkmark
+              .col-auto.align-self-center
+                span.remove-icon(onclick=`removeField('${field.key}')`)
+                  i.fas.fa-times
 
         .col-12
           .row.add-field

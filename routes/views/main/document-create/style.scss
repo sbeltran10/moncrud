@@ -36,10 +36,22 @@ main {
   height: 2rem;
 }
 
-.add-field{
+.add-field {
   margin-top: 1rem;
-  input{
+  input {
     text-align: right;
     margin-bottom: 0.7rem;
+  }
+}
+
+.remove-icon {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  &:hover,
+  &:focus {
+    opacity: 0.4;
   }
 }

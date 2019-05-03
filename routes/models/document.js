@@ -31,10 +31,10 @@ module.exports = class {
           for (const field of this.fieldList) {
             if (updateObj[field.key]) {
               switch (field.objectType) {
-                case 'number':
+                case 'Number':
                   updateObj[field.key] = Number(updateObj[field.key])
                   break
-                case 'boolean':
+                case 'Boolean':
                   updateObj[field.key] = Array.isArray(updateObj[field.key])
                   break
                 default:

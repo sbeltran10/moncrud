@@ -4,30 +4,27 @@ module.exports = {
       if (document[key] === null) {
         fieldList.push({ key, inputType: null, objectType: null })
       } else {
-        const objectType = typeof document[key]
+        const propValue = document[key]
+        const objectType = propValue.constructor ? propValue.constructor.name : 'None'
         let inputType
         switch (objectType) {
-          case 'string':
+          case 'String':
             inputType = 'text'
             break
-          case 'number':
+          case 'Number':
             inputType = 'number'
             break
-          case 'boolean':
+          case 'Boolean':
             inputType = 'checkbox'
             break
+          case 'ObjectID':
+            inputType = 'id'
+            break
+          case 'Date':
+            inputType = 'date'
+            break
           default:
-            switch (document[key].constructor.name) {
-              case 'ObjectID':
-                inputType = 'id'
-                break
-              case 'Date':
-                inputType = 'date'
-                break
-              default:
-                inputType = 'object'
-                break
-            }
+            inputType = 'object'
             break
         }
         fieldList.push({ key, inputType, objectType })

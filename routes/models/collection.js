@@ -1,6 +1,5 @@
 const SORT_SPLIT = 'sort--'
 const PAGE_SIZE = 50
-const MAX_PAGE_AMOUNT = 20
 const ObjectID = require('mongodb').ObjectID
 
 module.exports = class {
@@ -36,8 +35,9 @@ module.exports = class {
           documents.forEach(document => {
             this.getFieldsAndDocument(document)
           })
+
           if (loadDocuments) this.documents = documents
-          if (createdId) {
+          if (createdId && !this.documents.find((doc) => doc._id.toString() === createdId)) {
             return collection.findOne({ _id: new ObjectID(createdId) })
           } else {
             this.fieldList = Object.values(this.fields)
@@ -46,7 +46,6 @@ module.exports = class {
         })
         .then((document) => {
           if (document) {
-            console.log(document)
             this.getFieldsAndDocument(document)
             this.fieldList = Object.values(this.fields)
             this.documents = [document, ...this.documents]
@@ -81,20 +80,20 @@ module.exports = class {
     return queryObj
   }
 
-  getFormData (db, parameters, page = 0) {
+  getFormData (db, parameters, page = 1) {
     return new Promise((resolve, reject) => {
       this.getFieldsAndDocuments(db.collection(this.name), parameters, page, false)
         .then(() => {
           this.fieldList.forEach((field, index) => {
             let inputType
             switch (field.type) {
-              case 'string':
+              case 'String':
                 inputType = 'text'
                 break
-              case 'number':
+              case 'Number':
                 inputType = 'number'
                 break
-              case 'boolean':
+              case 'Boolean':
                 inputType = 'checkbox'
                 break
               default:
@@ -112,8 +111,29 @@ module.exports = class {
   }
 
   createDocument (db, object) {
+    const newDocument = JSON.parse(JSON.stringify(object))
+    const inputTypeSeparator = '___input_type'
     return new Promise((resolve, reject) => {
-      db.collection(this.name).insertOne(object)
+      for (const key in newDocument) {
+        if (newDocument.hasOwnProperty(key) && newDocument[key]) {
+          if (key.indexOf(inputTypeSeparator) !== -1) {
+            const inputKey = key.substr(0, key.lastIndexOf(inputTypeSeparator))
+            switch (newDocument[key]) {
+              case 'number':
+                newDocument[inputKey] = Number(newDocument[inputKey])
+                break
+              case 'checkbox':
+                newDocument[inputKey] = Array.isArray(newDocument[inputKey])
+                break
+              default:
+                newDocument[inputKey] = newDocument[inputKey].toString()
+                break
+            }
+            delete newDocument[key]
+          }
+        }
+      }
+      db.collection(this.name).insertOne(newDocument)
         .then((result) => {
           resolve(result.insertedId)
         })
@@ -140,14 +160,16 @@ module.exports = class {
 
   getFieldsAndDocument (document) {
     for (const key in document) {
-      if (document.hasOwnProperty(key) && document[key]) {
+      const propValue = document[key]
+      if (document.hasOwnProperty(key) && propValue) {
+        const type = propValue.constructor ? propValue.constructor.name : 'None'
         if (!this.fields[key]) {
           this.fields[key] = {
             key: key,
-            type: typeof document[key]
+            type
           }
-        } else if (this.fields[key].type !== typeof document[key]) { // eslint-disable-line
-          this.fields[key].type = 'mixed'
+        } else if (this.fields[key].type !== type) { // eslint-disable-line
+          this.fields[key].type = 'Mixed'
         }
       }
     }
