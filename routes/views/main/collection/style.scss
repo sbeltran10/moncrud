@@ -32,16 +32,13 @@
 }
 
 .container-cell{
-  padding: 0.2rem 1rem;
+  padding: 0.7rem;
   min-height: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 
 }
 
-.no-value{
-  color:$primary-color-alt;
+.italic{
+  color:$italics-color;
   font-style: italic
 }
 

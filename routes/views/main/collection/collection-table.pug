@@ -23,7 +23,13 @@
             a(href=`${currentRoute}/${keyValue}`)
               .col-12.container-cell.document-id= keyValue
           else
-            if (keyValue !== null && keyValue !== undefined) && (field.type !== 'Array' || (field.type === 'Array' && keyValue.length > 0))
-              .col-12.document-value.container-cell= keyValue
-            else
-              .col-12.document-value.container-cell.no-value No value
+            .col-12.document-value.container-cell
+              if (field.type === 'Object')
+                span.italic ( View entry detail )
+              else if (keyValue !== null && keyValue !== undefined) && (field.type !== 'Array')
+                span=keyValue
+              else if (field.type === 'Array' && keyValue.length > 0)
+                - var arrayText = keyValue.join(', ')
+                span=arrayText
+              else
+                span.italic No value
