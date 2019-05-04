@@ -6,18 +6,20 @@ block imports-main
 mixin nestedFields(fields, nestedDocument)
   each field in fields
     .row.property
-      .col-2.field.align-self-center= field.key.prettyTitleCase()
+      .col-2.field= field.key.prettyTitleCase()
       - var nestedInputValue = nestedDocument[field.key]
       if field.inputType === 'simplearray'
-        .col-auto.value.align-self-center.d-flex=nestedInputValue.join(', ')
+        if nestedInputValue.length > 0
+          .col-auto.value= nestedInputValue.join(', ')
+        else
+          .col-auto.value.italic No data
       else if field.inputType === 'complexarray'
-        .col-auto.value.align-self-center.d-flex Data type not supported
+        .col-auto.value.unsupported-data Data type not supported
       else if field.inputType === 'nested'
-        .row.nested-object
-          .col-12
-            +nestedFields(field.nested, nestedInputValue)
+        .col-10.nested
+          +nestedFields(field.nested, nestedInputValue)
       else
-        .col-auto.value.align-self-center.d-flex=nestedInputValue
+        .col-auto.value=nestedInputValue
 
 block content-main
     .row
@@ -41,29 +43,34 @@ block content-main
         .col-12
           each field in document.fieldList
             .row.property
-              .col-2.field.align-self-center= field.key.prettyTitleCase()
+              .col-2.field= field.key.prettyTitleCase()
               - var inptValue = document.data[field.key]
               if (field.inputType === 'text' || field.inputType === 'number')
-                .col-6.value.align-self-center.d-flex
+                .col-6.value
                   input.value-input.justify-content-start(name=field.key disabled=disabledInput type=`${field.inputType}` value=inptValue step="any")
               else if field.inputType === 'checkbox'
-                .col-6.value.align-self-center.d-flex
+                .col-6.value.checkbox-value
                   label.check-container
                     - var checked = document.data[field.key]
                     input.value-input(name=field.key type=`${field.inputType}` checked=checked value="true")
                     input.value-input(name=field.key type=`hidden` value="false")
                     span.checkmark
               else if field.inputType === 'id'
-                .col-auto.value.align-self-center.d-flex=inptValue                    
+                .col-auto.value=inptValue                    
               else if field.inputType === 'date'
-                .col-auto.value.align-self-center.d-flex=inptValue                  
+                .col-auto.value=inptValue                  
               else if field.inputType === 'nested'
-                .col-10
+                .col-10.nested
                   +nestedFields(field.nested, inptValue)
               else if field.inputType === 'simplearray'
-                .col-auto.value.align-self-center.d-flex=inptValue.join(', ')
+                if inptValue.length > 0
+                  .col-auto.value= inptValue.join(', ')
+                else
+                  .col-auto.value.italic No data
+              else if !field.inputType
+                .col-auto.value.italic No data
               else
-                .col-auto.value.align-self-center.d-flex Data type not supported
+                .col-auto.value.italic Data type not supported
                   
       .row
         .col-auto.offset-2

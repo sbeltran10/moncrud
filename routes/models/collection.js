@@ -1,3 +1,4 @@
+const common = require('./common')
 const SORT_SPLIT = 'sort--'
 const PAGE_SIZE = 50
 const ObjectID = require('mongodb').ObjectID
@@ -50,6 +51,7 @@ module.exports = class {
             this.fieldList = Object.values(this.fields)
             this.documents = [document, ...this.documents]
           }
+          console.log(this.fields)
           resolve()
         })
         .catch(err => {
@@ -162,8 +164,16 @@ module.exports = class {
     for (const key in document) {
       const propValue = document[key]
       if (document.hasOwnProperty(key) && (propValue !== null && propValue !== undefined)) {
-        const type = propValue.constructor ? propValue.constructor.name : 'None'
+        let type = propValue.constructor ? propValue.constructor.name : 'None'
         if (!this.fields[key]) {
+          if (type === 'Array') {
+            if (common.isSimpleArray(propValue)) {
+              type = 'SimpleArray'
+            } else {
+              type = 'ComplexArray'
+            }
+          }
+          console.log(type)
           this.fields[key] = {
             key: key,
             type

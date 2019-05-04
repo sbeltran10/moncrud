@@ -10,6 +10,9 @@ main {
 .field {
   font-weight: bold;
   text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .value-input {
@@ -39,9 +42,20 @@ main {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   height: 2rem;
-}
-
-.property span{
   display: flex;
   align-items: center;
+}
+
+.checkbox-value{
+  align-items: flex-start;
+}
+
+.nested{
+  border-left: 1px solid $col-border-color;
+  margin: 0.5rem 0;
+}
+
+.italic{
+  color:$italics-color;
+  font-style: italic
 }
