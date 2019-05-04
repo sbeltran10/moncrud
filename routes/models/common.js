@@ -1,12 +1,19 @@
-module.exports = {
-  identifyAndAddField (fieldList, key, document) {
+const simpleTypes = ['String', 'Number', 'Boolean', 'ObjectID', 'Date']
+
+const common = {
+  identifyAndAddField: (fieldList, key, document) => {
+    fieldList.push(common.processType(key, document))
+  },
+
+  processType: (key, document) => {
     if (document.hasOwnProperty(key)) {
-      if (document[key] === null) {
-        fieldList.push({ key, inputType: null, objectType: null })
+      const propValue = document[key]
+      if (propValue === null) {
+        return { key, inputType: null, objectType: null }
       } else {
-        const propValue = document[key]
         const objectType = propValue.constructor ? propValue.constructor.name : 'None'
         let inputType
+        let nested
         switch (objectType) {
           case 'String':
             inputType = 'text'
@@ -23,12 +30,44 @@ module.exports = {
           case 'Date':
             inputType = 'date'
             break
+          case 'Array':
+            if (common.isSimpleArray(propValue)) {
+              inputType = 'simplearray'
+            } else {
+              inputType = 'complexarray'
+            }
+            break
+          case 'Object':
+            inputType = 'nested'
+            nested = common.addNested(propValue)
+            break
           default:
-            inputType = 'object'
+            inputType = 'na'
             break
         }
-        fieldList.push({ key, inputType, objectType })
+
+        return { key, inputType, objectType, nested }
       }
     }
+  },
+
+  isSimpleArray: (propValue) => {
+    for (const item of propValue) {
+      const constructor = item.constructor
+      if (!constructor || !simpleTypes.includes(constructor.name)) {
+        return false
+      }
+    }
+    return true
+  },
+
+  addNested: (propValue) => {
+    let nestedProps = []
+    for (const nestedKey in propValue) {
+      nestedProps.push(common.processType(nestedKey, propValue))
+    }
+    return nestedProps
   }
 }
+
+module.exports = common
