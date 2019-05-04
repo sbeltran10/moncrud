@@ -161,7 +161,7 @@ module.exports = class {
   getFieldsAndDocument (document) {
     for (const key in document) {
       const propValue = document[key]
-      if (document.hasOwnProperty(key) && propValue) {
+      if (document.hasOwnProperty(key) && (propValue !== null && propValue !== undefined)) {
         const type = propValue.constructor ? propValue.constructor.name : 'None'
         if (!this.fields[key]) {
           this.fields[key] = {
