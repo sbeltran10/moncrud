@@ -51,7 +51,6 @@ module.exports = class {
             this.fieldList = Object.values(this.fields)
             this.documents = [document, ...this.documents]
           }
-          console.log(this.fields)
           resolve()
         })
         .catch(err => {
@@ -73,13 +72,20 @@ module.exports = class {
   }
 
   buildQueryObj (parameters) {
-    let queryObj = {}
+    let queryObj = { $and: [] }
     for (const key in parameters) {
       if (parameters.hasOwnProperty(key) && !key.startsWith(SORT_SPLIT) && parameters[key]) {
-        queryObj[key] = { $regex: parameters[key], $options: 'i' }
+        const value = parameters[key]
+        let regexQueryContent = { [key]: { $regex: value, $options: 'i' } }
+        if (isNaN(value)) {
+          queryObj['$and'].push(regexQueryContent)
+        } else {
+          queryObj['$and'].push({ $or: [{ [key]: Number(value) }, regexQueryContent] })
+        }
       }
     }
-    return queryObj
+    console.log(queryObj['$and'][0])
+    return queryObj['$and'].length > 0 ? queryObj : {}
   }
 
   getFormData (db, parameters, page = 1) {
@@ -173,7 +179,6 @@ module.exports = class {
               type = 'ComplexArray'
             }
           }
-          console.log(type)
           this.fields[key] = {
             key: key,
             type

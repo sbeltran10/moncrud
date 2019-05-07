@@ -11,7 +11,7 @@ router.get('/:database', (req, res, next) => {
           connections: connectionManager.connections,
           database: database,
           collections: [],
-          previousPage: './'
+          previousPage: '/main'
         })
     })
     .catch(err => {

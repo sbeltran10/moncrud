@@ -1,5 +1,8 @@
 nav
   .databases
     each connection in connections
-      a(href=`/main/${connection.name}`)
+      a(href=`/main/databases/${connection.name}`)
         .nav-item= connection.name.prettyTitleCase()
+
+    a(href=`/main/connections`)
+      .nav-item.add + Add new

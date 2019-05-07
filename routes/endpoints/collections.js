@@ -27,13 +27,13 @@ const handleGetRequest = (req, res, next) => {
     })
 }
 
-router.get('/:database/:collection', handleGetRequest)
-router.get('/:database/:collection/page/:page', handleGetRequest)
-router.get('/:database/:collection/reset/1', (req, res) => {
-  res.redirect(`/main/${req.params.database}/${req.params.collection}`)
+router.get('/:database/collections/:collection', handleGetRequest)
+router.get('/:database/collections/:collection/page/:page', handleGetRequest)
+router.get('/:database/collections/:collection/reset/1', (req, res) => {
+  res.redirect(`/main/databases/${req.params.database}/collections/${req.params.collection}`)
 })
 
-router.get('/:database/:collection/create', (req, res, next) => {
+router.get('/:database/collections/:collection/create', (req, res, next) => {
   collectionController.performOperation(req, 'create-form')
     .then((collection) => {
       res.render('main/document-create', {
@@ -49,10 +49,10 @@ router.get('/:database/:collection/create', (req, res, next) => {
     })
 })
 
-router.post('/:database/:collection/create', (req, res, next) => {
+router.post('/:database/collections/:collection/create', (req, res, next) => {
   collectionController.performOperation(req, 'create')
     .then((createdId) => {
-      res.redirect(`/main/${req.params.database}/${req.params.collection}?createdId=${createdId}`)
+      res.redirect(`/main/databases/${req.params.database}/collections/${req.params.collection}?createdId=${createdId}`)
     })
     .catch(err => {
       console.log(err)

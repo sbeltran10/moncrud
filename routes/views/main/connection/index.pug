@@ -1,5 +1,8 @@
 extends ../layout
-
+block imports-main
+  link(type="text/css" rel="stylesheet" href="/static/main/collection/style.css")
+  script(src="/static/main/collection/script.js" defer)
+  
 block content-main
   form(method='POST').new-connection
     input(type='text' name='name' autofocus placeholder='Connection name')

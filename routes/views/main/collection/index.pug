@@ -4,13 +4,13 @@ block imports-main
   script(src="/static/main/collection/script.js" defer)
   script var collectionCount = !{JSON.stringify(collection.count).replace(/<\//g, '<\\/')}
   script var page = !{JSON.stringify(inputValues.page).replace(/<\//g, '<\\/')}
-  script var currentRoute = `/main/${!{JSON.stringify(databaseName)}}/${!{JSON.stringify(collection.name)}}`
+  script var currentRoute = `/main/databases/${!{JSON.stringify(databaseName)}}/collections/${!{JSON.stringify(collection.name)}}`
 
 block content-main
-  - var currentRoute = `/main/${databaseName}/${collection.name}`
+  - var currentRoute = `/main/databases/${databaseName}/collections/${collection.name}`
   .row
     .col-auto
-      a(href=`/main/${databaseName}?${collectionQuery}`)
+      a(href=`/main/databases/${databaseName}`)
         .back-button Go Back
   .row
     h4.col= collection.name.prettyTitleCase()

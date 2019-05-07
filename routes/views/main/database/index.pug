@@ -20,5 +20,5 @@ block content-main
   .row
     each collection in database.collections
       .col-3
-        a(href=`/main/${database.name}/${collection}`)
+        a(href=`/main/databases/${database.name}/collections/${collection}`)
           .collection-item=collection.prettyTitleCase()

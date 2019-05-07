@@ -10,8 +10,8 @@ module.exports = app => {
   const authMiddleware = require('./endpoints/middleware/authentication')
   app.all('/main/*', authMiddleware.verifyToken)
   app.use('/main', require('./endpoints/main'))
-  app.use('/main/connection', require('./endpoints/connection'))
-  app.use('/main', require('./endpoints/database'))
-  app.use('/main', require('./endpoints/collection'))
-  app.use('/main', require('./endpoints/document'))
+  app.use('/main/connections', require('./endpoints/connections'))
+  app.use('/main/databases', require('./endpoints/databases'))
+  app.use('/main/databases', require('./endpoints/collections'))
+  app.use('/main/databases', require('./endpoints/documents'))
 }
