@@ -1,10 +1,33 @@
 extends ../layout
 block imports-main
-  link(type="text/css" rel="stylesheet" href="/static/main/collection/style.css")
-  script(src="/static/main/collection/script.js" defer)
+  link(type="text/css" rel="stylesheet" href="/static/main/connection/style.css")
+  script(src="/static/main/connection/script.js" defer)
   
 block content-main
+  .row
+    .col-auto
+      a(href=`${previousPage}`)
+        .back-button Go Back
+
+  if sucMessage
+      .row
+        .col-8
+          .outcome-msg.success-msg=sucMessage
+  else if errMessage
+    .row
+      .col-8
+        .outcome-msg.error-msg=errMessage
+  .row
+    h3.col Add new database connection
+  
   form(method='POST').new-connection
-    input(type='text' name='name' autofocus placeholder='Connection name')
-    input(type='text' name='uri' autofocus placeholder='Database uri')
-    button(type="submit") Connect
+    .row.explanation
+      .col Enter the connection URI and the exact name of the database you want to access
+    .row
+      .col-8
+        input(type='text' name='uri' autofocus placeholder='Connection uri')
+    .row
+      .col-8
+        input(type='text' name='name' autofocus placeholder='Database name')
+    
+    button.app-button(type="submit") Connect

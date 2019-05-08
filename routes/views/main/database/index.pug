@@ -10,6 +10,8 @@ block content-main
         .back-button Go Back
   .row
     h4.col= database.name.prettyTitleCase()
+  .row.explanation
+    .col Select a collection to view its entries
   form#filter-form(method="GET")
     .row
       .col-lg-4.col-8.input-group.db-filter

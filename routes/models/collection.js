@@ -84,7 +84,6 @@ module.exports = class {
         }
       }
     }
-    console.log(queryObj['$and'][0])
     return queryObj['$and'].length > 0 ? queryObj : {}
   }
 

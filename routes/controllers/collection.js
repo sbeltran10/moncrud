@@ -3,7 +3,6 @@ const connectionManager = require('../services/connection-manager')
 
 module.exports = {
   performOperation: (req, operation) => {
-    console.log(req.params)
     const connection = connectionManager.connections[req.params.database].connection
     return new Promise((resolve, reject) => {
       connection

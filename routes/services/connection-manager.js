@@ -15,12 +15,18 @@ const connectionManager = {
     new Promise((resolve, reject) => {
       const connection = MongoClient.connect(connectionData.uri, DEFAULT_OPS)
       connection
-        .then(() => {
-          connectionManager.connections[connectionData.name] = (
-            new DBConnection(connectionData, connection)
-          )
-          dataManager.save({ key: connectionData.name, value: connectionData }, dataManager.DB_STORE)
-          resolve()
+        .then((client) => {
+          const db = client.db(connectionData.name)
+          db.listCollections().toArray()
+            .then(() => {
+              connectionManager.connections[connectionData.name] = new DBConnection(connectionData, connection)
+              dataManager.save({ key: connectionData.name, value: connectionData }, dataManager.DB_STORE)
+              resolve()
+            })
+            .catch((err) => {
+              console.log(err)
+              reject(err)
+            })
         })
         .catch(err => {
           console.log(err)

@@ -9,8 +9,7 @@ router.get('/:database/collections/:collection/documents/:documentId', (req, res
       res.render('main/document',
         {
           connections: connectionManager.connections,
-          document: document,
-          success: req.query.success
+          document: document
         })
     })
     .catch(err => {
@@ -21,8 +20,13 @@ router.get('/:database/collections/:collection/documents/:documentId', (req, res
 
 router.post('/:database/collections/:collection/documents/:documentId', (req, res, next) => {
   documentController.performOperation(req, 'save')
-    .then(() => {
-      res.redirect(`/main/databases/${req.params.database}/collections/${req.params.collection}/documents/${req.params.documentId}?success=1`)
+    .then(document => {
+      res.render('main/document',
+        {
+          connections: connectionManager.connections,
+          document: document,
+          success: 1
+        })
     })
     .catch(err => {
       console.log(err)

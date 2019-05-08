@@ -43,8 +43,8 @@ module.exports = class {
               }
             }
           }
-          db.collection(collection).updateOne({ _id: this._id }, { $set: updateObj })
-            .then(() => resolve())
+          db.collection(collection).updateOne({ _id: this._id }, { $set: updateObj }, { new: true })
+            .then((document) => resolve(document))
             .catch(error => reject(error))
         })
         .catch(error => reject(error))
