@@ -20,4 +20,9 @@ router.get('/:database', (req, res, next) => {
     })
 })
 
+router.delete('/:database', (req, res, next) => {
+  databaseController.removeDatabase(req)
+  res.redirect(303, `/main`)
+})
+
 module.exports = router

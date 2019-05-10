@@ -7,20 +7,26 @@ block content-main
   .row
     .col-auto
       a(href=`${previousPage}`)
-        .back-button Go Back
+        .top-action Go Back
+    .col-auto
+      .top-action(onclick='removeConnection()') Remove Connection
   .row
     h4.col= database.name.prettyTitleCase()
-  .row.explanation
-    .col Select a collection to view its entries
-  form#filter-form(method="GET")
+  if database.collections.length > 0
+    .row.explanation
+      .col Select a collection to view its entries
+    form#filter-form(method="GET")
+      .row
+        .col-lg-4.col-8.input-group.db-filter
+          input#filter-db.form-control(name='filter' type='search' placeholder='Filter by name')
+          .input-group-append
+            button.clear-but.group-but(type='button' onclick='clearFilter()') Clear
+            button.filter-but.group-but(type='submit') Apply
     .row
-      .col-lg-4.col-8.input-group.db-filter
-        input#filter-db.form-control(name='filter' type='search' placeholder='Filter by name')
-        .input-group-append
-          button.clear-but.group-but(type='button' onclick='clearFilter()') Clear
-          button.filter-but.group-but(type='submit') Apply
-  .row
-    each collection in database.collections
-      .col-3
-        a(href=`/main/databases/${database.name}/collections/${collection}`)
-          .collection-item=collection.prettyTitleCase()
+      each collection in database.collections
+        .col-3
+          a(href=`/main/databases/${database.name}/collections/${collection}`)
+            .collection-item=collection.prettyTitleCase()
+  else
+    .row.explanation
+        .col There are no collections in this database

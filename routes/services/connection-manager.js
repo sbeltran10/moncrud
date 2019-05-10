@@ -46,8 +46,12 @@ const connectionManager = {
         .then(() => {
           resolve()
         })
-    })
+    }),
 
+  removeConnection: (databaseName) => {
+    dataManager.delete(databaseName, dataManager.DB_STORE)
+    delete connectionManager.connections[databaseName]
+  }
 }
 module.exports = connectionManager
 

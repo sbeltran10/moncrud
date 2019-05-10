@@ -12,49 +12,33 @@ const dataManager = {
   CONFIG_STORE: 'config',
 
   save: (data, store) => {
-    let saveStore
-    switch (store) {
-      case dataManager.DB_STORE:
-        saveStore = dbStore
-        break
-      case dataManager.USER_STORE:
-        saveStore = userStore
-        break
-      case dataManager.COLLECTION_STORE:
-        saveStore = collectionStore
-        break
-      case dataManager.CONFIG_STORE:
-        saveStore = configStore
-        break
-      default:
-        saveStore = dbStore
-        break
-    }
-
+    const saveStore = getStore(store)
     return saveStore.set(data.key, data.value)
   },
 
   read: store => {
-    let readStore
-    switch (store) {
-      case dataManager.DB_STORE:
-        readStore = dbStore
-        break
-      case dataManager.USER_STORE:
-        readStore = userStore
-        break
-      case dataManager.COLLECTION_STORE:
-        readStore = collectionStore
-        break
-      case dataManager.CONFIG_STORE:
-        readStore = configStore
-        break
-      default:
-        readStore = dbStore
-        break
-    }
-
+    const readStore = getStore(store)
     return readStore.data
+  },
+
+  delete: (name, store) => {
+    const deleteStore = getStore(store)
+    return deleteStore.del(name)
+  }
+}
+
+const getStore = (store) => {
+  switch (store) {
+    case dataManager.DB_STORE:
+      return dbStore
+    case dataManager.USER_STORE:
+      return userStore
+    case dataManager.COLLECTION_STORE:
+      return collectionStore
+    case dataManager.CONFIG_STORE:
+      return configStore
+    default:
+      return dbStore
   }
 }
 

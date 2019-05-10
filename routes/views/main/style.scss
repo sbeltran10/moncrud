@@ -21,6 +21,10 @@ header {
 
 .header-banner {
   margin-bottom: 0;
+  img {
+    height: 2.5rem;
+    width: auto;
+  }
 }
 
 body {
@@ -51,7 +55,7 @@ nav {
     border-bottom: solid 1px $button-sec-color;
     color: $button-sec-color;
     font-weight: bold;
-    &.add{
+    &.add {
       background-color: white;
       margin: 0.15rem;
       color: $primary-color;
@@ -59,20 +63,20 @@ nav {
   }
 }
 
-.back-button {
+.top-action {
   color: $primary-color;
   border: solid 1px $primary-color;
   padding: 0.3rem 0.6rem;
   font-weight: bold;
   margin-bottom: 1rem;
-}
+  width: 10rem;
+  text-align: center;
+  user-select: none;
+  cursor: default;
 
-.mon-kw {
-  color: $primary-color-alt;
-}
-
-.crud-kw {
-  color: $primary-color;
+  &:hover {
+    opacity: 0.5;
+  }
 }
 
 .app-button {

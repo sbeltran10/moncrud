@@ -1,4 +1,5 @@
 header.container-fluid
   form.row.header-row(action="/logout" method="get")
-    h3.col-3.align-self-center.header-banner <span class="mon-kw">Mon</span><span class="crud-kw">CRUD</span>
+    div.col-3.align-self-center.header-banner
+      img(src="/static/images/horizontal-sm.png", alt="moncrud logo")
     button.offset-8.col-1(type="submit") Logout

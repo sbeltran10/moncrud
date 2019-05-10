@@ -1,35 +1,34 @@
-@import '../styling/variables';
+@import "../styling/variables";
 
-body{
+body {
   min-height: fit-content;
 }
 
-main.container{
+main.container {
   margin-top: 10%;
   border: solid 1px $col-border-color;
   width: fit-content;
   max-width: 25rem;
-  padding:3rem 4rem
+  padding: 3rem 4rem;
 }
 
-.mon-kw{
-  color: $primary-color
-}
-
-.crud-kw{
-  color:$primary-color-alt
-}
-
-.initial-text{
+.initial-text {
   margin-bottom: 1rem;
 }
 
-form input.col{
+form input.col {
   width: 20rem;
-  margin-bottom: 1rem
+  margin-bottom: 1rem;
 }
 
-.error-msg{
+.error-msg {
   color: $negative-color;
-  margin-bottom: 1rem
+  margin-bottom: 1rem;
+}
+
+.banner-logo {
+  img {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 }

@@ -17,5 +17,9 @@ module.exports = {
         })
         .catch(err => reject(err))
     })
+  },
+
+  removeDatabase: req => {
+    connectionManager.removeConnection(req.params.database)
   }
 }
