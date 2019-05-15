@@ -14,12 +14,13 @@ module.exports = app => {
     sassMiddleware({
       src: path.join(path.join(__dirname, '../routes'), 'views'),
       dest: path.join(path.join(__dirname, '../public'), 'static'),
-      debug: true,
+      debug: process.env.NODE_ENV !== 'prod',
+      outputStyle: process.env.NODE_ENV === 'prod' ? 'extended' : 'compressed',
       prefix: '/static'
     })
   )
 
-  app.use(logger('dev'))
+  app.use(logger(process.env.NODE_ENV === 'prod' ? 'tiny' : 'dev'))
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
   app.use(cookieParser())
