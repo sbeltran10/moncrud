@@ -68,12 +68,16 @@ let generateFieldElements = function (inputName) {
   </div>`)
   let valueCol = $(`<div class="col-6 value align-self-center d-flex" id="${changeCase.camelCase(inputName)}---col"></div>`)
   let valueInput = generateInput('text', changeCase.camelCase(inputName))
+  let removeCol = $(`<div class="col-auto align-self-center">
+    <span class="remove-icon" onclick="removeField('${inputName}')"><i class="fas fa-times"></i></span>
+  </div>`)
 
   valueCol.append(valueInput)
 
   mainRow.append(fieldNameCol)
   mainRow.append(selectGroup)
   mainRow.append(valueCol)
+  mainRow.append(removeCol)
 
   return mainRow
 }
