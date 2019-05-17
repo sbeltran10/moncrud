@@ -87,3 +87,6 @@ data/*.json
 public/**/*.css
 
 public/static/common/bundle.js
+
+# dotenv environment variables file
+.env

@@ -2,7 +2,6 @@ const connectionManager = require('./services/connection-manager')
 
 module.exports = app => {
   connectionManager.loadConnections()
-
   app.use('/', require('./endpoints'))
   app.use('/setup', require('./endpoints/setup'))
   app.use('/logout', require('./endpoints/logout'))
