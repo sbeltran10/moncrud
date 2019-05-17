@@ -6,7 +6,6 @@ router.get('/', (req, res, next) => {
   if (!req.app.locals.setup) {
     res.redirect('/setup')
   } else {
-    // TODO: Check if authorization header is present, if it is valid, redirect to main page
     if (req.cookies['Authorization']) res.redirect('/main')
     else res.render('authentication', { wrongCredentials: req.query.wrongCredentials === '1' })
   }

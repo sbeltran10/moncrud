@@ -19,8 +19,8 @@ router.post('/', (req, res, next) => {
         res.redirect('/')
       })
       .catch(err => {
-        // Figure out what to do with error
         console.log(err)
+        res.render('setup')
       })
   }
 })
