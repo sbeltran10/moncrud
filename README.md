@@ -34,9 +34,10 @@ Follow the instructions on-screen to create the admin user and then add a connec
 
 ## Documentation
  
-See the documentation at [moncrud.com](https://moncrud.com/docs) for customization and configuration options and detailed explanation of how to set-up your database connections
+See the documentation at [moncrud.com](https://moncrud.com/docs) for customization and configuration options and a detailed explanation of how to set-up your database connections.
 
 ## License
 
 MIT Licensed. Copyright (c) Santiago Beltran 2019.
+
 Moncrud logo by [realinfo](https://github.com/reallinfo)
