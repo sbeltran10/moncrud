@@ -2,6 +2,7 @@
   "name": "moncrud",
   "version": "1.0.0",
   "private": true,
+  "author": "Santiago Beltran <santibelca@gmail.com>",
   "scripts": {
     "start": "node ./bin/www",
     "browserify-build": "browserify browserify-modules/main.js -o public/static/common/bundle.js"
