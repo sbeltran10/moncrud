@@ -16,7 +16,7 @@ module.exports = class {
     return new Promise((resolve, reject) => {
       this.getFieldsAndDocuments(db.collection(this.name), parameters, page)
         .then(() => {
-          return this.countDocuments(db)
+          return this.countDocuments(db, parameters)
         })
         .then(() => resolve(this))
         .catch((err) => reject(err))
@@ -148,9 +148,9 @@ module.exports = class {
     })
   }
 
-  countDocuments (db) {
+  countDocuments (db, parameters) {
     return new Promise((resolve, reject) => {
-      db.collection(this.name).countDocuments({}, { maxTimeMS: 5000 })
+      db.collection(this.name).countDocuments(this.buildQueryObj(parameters), { maxTimeMS: 5000 })
         .then((result) => {
           this.count = result
           resolve()
