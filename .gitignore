@@ -86,7 +86,7 @@ data/*.json
 # Compiled css files in public folder
 public/**/*.css
 
-public/static/common/bundle.js
+public/static/vendor/bundle.js
 
 # dotenv environment variables file
 .env
