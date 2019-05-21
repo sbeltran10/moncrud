@@ -22,6 +22,11 @@ After cloning the repository, intall moncrud's dependencies.
 ```
 npm install
 ```
+Run the broswerify build command
+
+```
+npm run browserify-build
+```
 
 Start the server and open the app at http://localhost:3003.
 
