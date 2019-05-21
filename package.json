@@ -5,7 +5,7 @@
   "author": "Santiago Beltran <santibelca@gmail.com>",
   "scripts": {
     "start": "node ./bin/www",
-    "browserify-build": "browserify browserify-modules/main.js -o public/static/common/bundle.js"
+    "browserify-build": "browserify browserify-modules/main.js -o public/static/vendor/bundle.js"
   },
   "dependencies": {
     "async": "^2.6.1",
