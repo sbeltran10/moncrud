@@ -2,6 +2,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const express = require('express')
+const favicon = require('serve-favicon')
 const sassMiddleware = require('node-sass-middleware')
 
 module.exports = app => {
@@ -15,7 +16,7 @@ module.exports = app => {
       src: path.join(path.join(__dirname, '../routes'), 'views'),
       dest: path.join(path.join(__dirname, '../public'), 'static'),
       debug: process.env.NODE_ENV !== 'prod',
-      outputStyle: process.env.NODE_ENV === 'prod' ? 'extended' : 'compressed',
+      outputStyle: process.env.NODE_ENV === 'prod' ? 'compressed' : 'extended',
       prefix: '/static'
     })
   )
@@ -25,4 +26,5 @@ module.exports = app => {
   app.use(express.urlencoded({ extended: false }))
   app.use(cookieParser())
   app.use(express.static(path.join(path.join(__dirname, '../'), 'public')))
+  app.use(favicon(path.join(__dirname, '../public', 'static/images/icon-48x48.png')))
 }
