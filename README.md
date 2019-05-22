@@ -22,9 +22,10 @@ After cloning the repository, intall moncrud's dependencies.
 ```
 npm install
 ```
-Run the broswerify build command
+If you don't have Browserify, install it globally and then run the broswerify build command.
 
 ```
+npm install -g browserify
 npm run browserify-build
 ```
 
