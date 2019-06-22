@@ -18,7 +18,7 @@ module.exports = {
               username: username,
               role: userData[username].role
             })
-          } else { reject(new Error('Invalid password')) }
+          } else { resolve(false) }
         })
         .catch((err) => reject(err))
     })
