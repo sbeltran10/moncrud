@@ -1,0 +1,22 @@
+main {
+  width: 100%;
+}
+
+.list-header{
+  font-weight: bold;
+}
+
+form {
+  .row {
+    margin-bottom: 1rem;
+    input, select {
+      margin-top: 2rem;
+      width: 100%;
+      padding: 0.3rem;
+    }
+  }
+
+  span{
+    margin-left: 1rem;
+  }
+}

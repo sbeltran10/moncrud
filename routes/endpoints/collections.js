@@ -18,7 +18,8 @@ const handleGetRequest = (req, res, next) => {
           inputValues: { page: req.params.page ? req.params.page : '0', ...req.query },
           databaseName: req.params.database,
           collectionQuery: req.query,
-          createdId
+          createdId,
+          user: req.decoded
         })
     })
     .catch(err => {
@@ -40,7 +41,8 @@ router.get('/:database/collections/:collection/create', (req, res, next) => {
         previousPage: '../' + req.params.collection,
         connections: connectionManager.connections,
         collection,
-        databaseName: req.params.database
+        databaseName: req.params.database,
+        user: req.decoded
       })
     })
     .catch(err => {

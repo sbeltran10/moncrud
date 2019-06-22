@@ -13,14 +13,15 @@ const renderPage = (res, properties) => {
 }
 
 router.get('/', (req, res, next) => {
-  renderPage(res, {})
+  renderPage(res, { user: req.decoded })
 })
 
 router.post('/', (req, res, next) => {
   connectionController.connectNew(req)
     .then(() => {
       renderPage(res, {
-        sucMessage: 'Database connection added sucessfully. Select the database on the navigation panel to manage its data'
+        sucMessage: 'Database connection added sucessfully. Select the database on the navigation panel to manage its data',
+        user: req.decoded
       })
     })
     .catch(err => {
@@ -31,7 +32,8 @@ router.post('/', (req, res, next) => {
         message = 'An error occured establishing a connection with the database. Please ensure the connection URI is correct and try again. This error might also occur because of a firewall issue on your mongodb\'s server'
       }
       renderPage(res, {
-        errMessage: message
+        errMessage: message,
+        user: req.decoded
       })
     })
 })

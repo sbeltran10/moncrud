@@ -8,8 +8,9 @@ block content-main
     .col-auto
       a(href=`${previousPage}`)
         .top-action Go Back
-    .col-auto
-      .top-action(onclick='removeConnection()') Remove Connection
+    if user.role === 'admin'
+      .col-auto
+        .top-action(onclick='removeConnection()') Remove Connection
   .row
     h4.col= database.name.prettyTitleCase()
   if database.collections.length > 0

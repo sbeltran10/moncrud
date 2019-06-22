@@ -2,4 +2,11 @@ header.container-fluid
   form.row.header-row(action="/logout" method="get")
     div.col-3.align-self-center.header-banner
       img(src="/static/images/horizontal-sm.png", alt="moncrud logo")
-    button.offset-8.col-1(type="submit") Logout
+    
+    .col-1.offset-5
+      if user.role === 'admin'
+        a(href=`/main/users`)
+          .nav-item-top Users
+    .col-2.user-head
+      span=user.username
+    button.col-1(type="submit") Logout

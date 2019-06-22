@@ -1,6 +1,7 @@
 const express = require('express')
 const databaseController = require('../controllers/database')
 const connectionManager = require('../services/connection-manager')
+const authMiddleware = require('./middleware/authentication')
 const router = express.Router()
 
 router.get('/:database', (req, res, next) => {
@@ -11,7 +12,8 @@ router.get('/:database', (req, res, next) => {
           connections: connectionManager.connections,
           database: database,
           collections: [],
-          previousPage: '/main'
+          previousPage: '/main',
+          user: req.decoded
         })
     })
     .catch(err => {
@@ -20,6 +22,7 @@ router.get('/:database', (req, res, next) => {
     })
 })
 
+router.use(authMiddleware.generateRoleVerification('admin'))
 router.delete('/:database', (req, res, next) => {
   databaseController.removeDatabase(req)
   res.redirect(303, `/main`)
