@@ -14,7 +14,7 @@ const renderPage = (res, properties) => {
 }
 
 router.get('/', (req, res, next) => {
-  renderPage(res, { username: req.decoded.username })
+  renderPage(res, { user: req.decoded })
 })
 
 router.post('/', (req, res, next) => {
