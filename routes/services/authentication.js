@@ -9,17 +9,25 @@ module.exports = {
   },
 
   comparePassword: (username, password) => {
-    let userData = dataManager.read(dataManager.USER_STORE)
-    if (userData[username]) return bcrypt.compare(password, userData[username].password)
-    else return new Promise((resolve, reject) => { resolve(false) })
+    return new Promise((resolve, reject) => {
+      let userData = dataManager.read(dataManager.USER_STORE)
+      bcrypt.compare(password, userData[username].password)
+        .then(result => {
+          if (result) {
+            resolve({
+              username: username,
+              role: userData[username].role
+            })
+          } else { reject(new Error('Invalid password')) }
+        })
+        .catch((err) => reject(err))
+    })
   },
 
-  generateJWT: username => {
+  generateJWT: userData => {
     let configData = dataManager.read(dataManager.CONFIG_STORE)
     return jwt.sign(
-      {
-        username: username
-      },
+      userData,
       configData.appSecret
     )
   }

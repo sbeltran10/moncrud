@@ -9,7 +9,8 @@ router.get('/:database/collections/:collection/documents/:documentId', (req, res
       res.render('main/document',
         {
           connections: connectionManager.connections,
-          document: document
+          document: document,
+          user: req.decoded
         })
     })
     .catch(err => {
@@ -25,7 +26,8 @@ router.post('/:database/collections/:collection/documents/:documentId', (req, re
         {
           connections: connectionManager.connections,
           document: document,
-          success: 1
+          success: 1,
+          user: req.decoded
         })
     })
     .catch(err => {

@@ -13,10 +13,28 @@ header {
 
 .header-row {
   height: 100%;
-}
+  button {
+    background-color: $primary-color-alt;
+  }
 
-.header-row button {
-  background-color: $primary-color-alt;
+  .user-head{
+    border-left: 1px solid $primary-color-alt;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-item-top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-weight: bold;
+    background-color: $secondary-color;
+
+    &:hover{
+      opacity: 0.5;
+    }
+  }
 }
 
 .header-banner {

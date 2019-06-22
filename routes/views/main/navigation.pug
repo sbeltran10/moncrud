@@ -3,6 +3,6 @@ nav
     each connection in connections
       a(href=`/main/databases/${connection.name}`)
         .nav-item= connection.name.prettyTitleCase()
-
-    a(href=`/main/connections`)
-      .nav-item.add + Add new
+    if user.role === 'admin'
+      a(href=`/main/connections`)
+        .nav-item.add + Add new

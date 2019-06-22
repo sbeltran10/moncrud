@@ -5,9 +5,9 @@ module.exports = {
     return new Promise((resolve, reject) => {
       if (req.body.username) req.body.username = req.body.username.toLowerCase()
       authenticationService.comparePassword(req.body.username, req.body.password)
-        .then(result => {
-          if (result) {
-            resolve(authenticationService.generateJWT(req.body.username))
+        .then(userData => {
+          if (userData) {
+            resolve(authenticationService.generateJWT(userData))
           } else resolve(false)
         })
         .catch(err => {

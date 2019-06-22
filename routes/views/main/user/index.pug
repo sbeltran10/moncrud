@@ -1,0 +1,42 @@
+extends ../layout
+block imports-main
+  link(type="text/css" rel="stylesheet" href="/static/main/user/style.css")
+  script(src="/static/main/user/script.js" defer)
+
+block content-main
+  .row
+    .col-auto
+      a(href=`${previousPage}`)
+        .top-action Go Back
+
+  if sucMessage
+    .row
+      .col-8
+        .outcome-msg.success-msg=sucMessage
+  else if errMessage
+    .row
+      .col-8
+        .outcome-msg.error-msg=errMessage
+  .row
+    h3.col Users
+
+  .row.list-header
+    .col-4 Username
+    .col-1 Role
+  each user in users
+    .row
+      .col-4=user.username
+      .col-1=user.role
+
+  form(method='POST')
+    .row
+      .col-4
+        input(type='text' name='username' autofocus placeholder='Username')
+      .col-1
+        select(id=`user-role` name=`role`)
+          option(value='admin' selected=selectedText) Admin
+          option(value='user' selected=selectedNumber) User
+    
+    button.app-button(type="submit") Add User
+    span A password will be automatically generated when creating a user
+    

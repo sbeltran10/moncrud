@@ -19,5 +19,14 @@ module.exports = {
       res.clearCookie('Authorization')
       res.redirect('/')
     }
-  }
+  },
+
+  generateRoleVerification: (role) =>
+    (req, res, next) => {
+      if (req.decoded && req.decoded.role === role) {
+        next()
+      } else {
+        res.status(401).render('error')
+      }
+    }
 }

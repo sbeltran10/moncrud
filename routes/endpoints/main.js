@@ -7,7 +7,8 @@ router.get('/', (req, res, next) => {
     {
       connections: connectionManager.connections,
       hasCollections: connectionManager.connections.length > 0,
-      collections: []
+      collections: [],
+      user: req.decoded
     })
 })
 
