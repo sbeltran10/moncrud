@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "async": "^2.6.1",
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "change-case": "^3.0.2",
     "cookie-parser": "~1.4.3",
     "data-store": "^3.1.0",
